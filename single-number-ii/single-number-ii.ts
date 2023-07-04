@@ -1,13 +1,13 @@
 function singleNumber(nums: number[]): number {
-    const candidate = new Set();
     const seen = new Set();
+    let totalDistinct = 0;
+    let total = 0;
     for(const n of nums) {
-        if(seen.has(n)) {
-            candidate.delete(n)
-        } else {
+        total += n
+        if(!seen.has(n)) {
+            totalDistinct += n
             seen.add(n)
-            candidate.add(n)
-        }
+        } 
     }
-    return candidate.values().next().value
+    return (3 * totalDistinct - total) / 2
 };

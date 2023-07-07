@@ -5,14 +5,14 @@ function maxConsecutiveAnswers(answerKey: string, k: number): number {
     for(let i = 0; i < answerKey.length; i++) {
         if(answerKey[i] === 'F') lf++
         else lt++
-
-        while(lf > k && lt > k) {
+        
+        if(lf > k && lt > k) {
             if(answerKey[prev] === 'F') lf--
             else lt--
             prev++
+        } else {
+            max = Math.max(max, lt + lf)
         }
-        
-        max = Math.max(max, lt + lf)
     }
     return max;
 };

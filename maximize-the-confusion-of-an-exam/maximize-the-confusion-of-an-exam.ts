@@ -1,20 +1,18 @@
 function maxConsecutiveAnswers(answerKey: string, k: number): number {
-    function maxConsecutiveByChar(char: string): number {
-        let max = 0, start = 0, counter = k, end = 0;
-        for(; end < answerKey.length; end++) {
-            if(char !== answerKey[end]) {
-                if(counter > 0){
-                    counter--
-                } else {
-                    max = Math.max(end - start, max)
-                    while(answerKey[start] === char) { 
-                        start++
-                    }
-                    start++
-                }
-            }
+    let max = 0;
+    let lf = 0, lt = 0;
+    let prev = 0;
+    for(let i = 0; i < answerKey.length; i++) {
+        if(answerKey[i] === 'F') lf++
+        else lt++
+
+        while(lf > k && lt > k) {
+            if(answerKey[prev] === 'F') lf--
+            else lt--
+            prev++
         }
-        return Math.max(end - start, max)
+        
+        max = Math.max(max, lt + lf)
     }
-    return Math.max(maxConsecutiveByChar('T'), maxConsecutiveByChar('F'))
+    return max;
 };

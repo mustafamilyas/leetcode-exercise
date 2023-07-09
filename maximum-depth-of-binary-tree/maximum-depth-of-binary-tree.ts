@@ -31,11 +31,11 @@ function iterative(root: TreeNode | null): number {
     let max = 1;
 
     while(stack.length) {
-        const [node, depth] = stack.pop();
+        const [node, depth] = stack.shift();
         max = Math.max(depth, max)
         if(node?.left) stack.push([node.left, depth + 1])
         if(node?.right) stack.push([node.right, depth + 1])
     }
-    
+
     return max;
 };

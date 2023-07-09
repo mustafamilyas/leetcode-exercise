@@ -13,7 +13,7 @@
  */
 
 function maxDepth(root: TreeNode | null): number {
-    return recursive(root, 0)
+    return iterative(root)
 };
 
 function recursive(root: TreeNode | null, depth: number = 0): number {
@@ -22,4 +22,20 @@ function recursive(root: TreeNode | null, depth: number = 0): number {
     const left = recursive(root.left, depth + 1)
     const right = recursive(root.right, depth + 1)
     return Math.max(left, right);
+};
+
+function iterative(root: TreeNode | null): number {
+    if(root === null) return 0;
+
+    let stack: [TreeNode, number][] = [[root, 1]]
+    let max = 1;
+
+    while(stack.length) {
+        const [node, depth] = stack.pop();
+        max = Math.max(depth, max)
+        if(node?.left) stack.push([node.left, depth + 1])
+        if(node?.right) stack.push([node.right, depth + 1])
+    }
+    
+    return max;
 };

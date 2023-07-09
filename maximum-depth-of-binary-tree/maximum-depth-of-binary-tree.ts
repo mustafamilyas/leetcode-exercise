@@ -13,13 +13,13 @@
  */
 
 function maxDepth(root: TreeNode | null): number {
-    function traverse(root: TreeNode | null, depth: number): number {
-        if(root === null) return depth;
+    return recursive(root, 0)
+};
 
-        const left = traverse(root.left, depth + 1)
-        const right = traverse(root.right, depth + 1)
-        return Math.max(left, right);
-    }
+function recursive(root: TreeNode | null, depth: number = 0): number {
+    if(root === null) return depth;
 
-    return traverse(root, 0)
+    const left = recursive(root.left, depth + 1)
+    const right = recursive(root.right, depth + 1)
+    return Math.max(left, right);
 };

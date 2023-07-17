@@ -29,24 +29,11 @@ function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | nul
             if(carry) return new ListNode(1)
             return null;
         }
-        if(l1 === null) {
-            const nextValue = l2.val + carry;
-            l2.val =  nextValue % 10;
-            l2.next = addTwo(l1, l2.next, Math.floor(nextValue / 10)) 
-            return l2;
-        }
-
-        if(l2 === null) {
-            const nextValue = l1.val + carry;
-            l1.val =  nextValue % 10;
-            l1.next = addTwo(l1.next, l2, Math.floor(nextValue / 10)); 
-            return l1;
-        }
-
-        const nextValue = l1.val + l2.val + carry;
-        l1.val =  nextValue % 10;
-        l1.next = addTwo(l1.next, l2.next, Math.floor(nextValue / 10))
-        return l1;
+        const nextValue = (l1?.val ?? 0) + (l2?.val ?? 0) + carry;
+        const usedNode = l1 || l2;
+        usedNode.val =  nextValue % 10;
+        usedNode.next = addTwo(l1?.next || null, l2?.next || null, Math.floor(nextValue / 10))  
+        return usedNode;
     }
     const reversedL1 = reverseList(l1);
     const reversedL2 = reverseList(l2);

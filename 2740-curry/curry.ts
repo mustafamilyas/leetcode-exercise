@@ -1,4 +1,17 @@
 function curry(fn: Function): Function {
+    let allArgs = [];
+    return function curried(...args) {
+        allArgs = [...allArgs, ...args]
+        if(allArgs.length >= fn.length) {
+            return fn(...allArgs)
+        } else {
+            return curried
+        }
+    };
+};
+
+
+function curryUsingApply(fn: Function): Function {
     return function curried(...args) {
         if(args.length >= fn.length) {
             return fn.apply(this, args)

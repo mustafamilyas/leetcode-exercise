@@ -21,15 +21,13 @@
  // 3 2 1 4
 
 function reverseList(head: ListNode | null): ListNode | null {
-    if(head === null) return head;
-    let cur = head.next;
-    let newHead = head;
+    let prev = null;
+    let cur = head;
     while(cur) {
         const next = cur.next;
-        cur.next = newHead;
-        head.next = next;
-        newHead = cur;
+        cur.next = prev;
+        prev = cur;
         cur = next;
     }
-    return newHead;
+    return prev;
 };

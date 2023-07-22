@@ -12,7 +12,7 @@ class MyHashMap {
     memory: Array<LinkedList>
     k: number
     constructor() {
-        this.k = 10;
+        this.k = 1000;
         this.memory = new Array(this.k).fill(null)
     }
 

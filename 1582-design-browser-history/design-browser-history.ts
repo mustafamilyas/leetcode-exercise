@@ -1,34 +1,31 @@
 class BrowserHistory {
-    backHistory: string[];
-    forwardHistory: string[];
-    current: string
+    history: string[];
+    current: number
     constructor(homepage: string) {
-        this.current = homepage;
-        this.backHistory = [];
-        this.forwardHistory = [];
+        this.history = [homepage]
+        this.current = 0;
     }
 
     visit(url: string): void {
-        // clear forwardHistory
-        this.forwardHistory = []
-        this.backHistory.push(this.current)
-        this.current = url;
+        this.current++;
+        this.history = this.history.slice(0, this.current)
+        this.history.push(url)
     }
 
     back(steps: number): string {
-        for(let i = 0; i < steps && this.backHistory.length; i++) {
-            this.forwardHistory.push(this.current)
-            this.current = this.backHistory.pop();
+        this.current -= steps
+        if(this.current < 0) {
+            this.current = 0;
         }
-        return this.current; 
+        return this.history[this.current]
     }
 
     forward(steps: number): string {
-        for(let i = 0; i < steps && this.forwardHistory.length; i++) {
-            this.backHistory.push(this.current)
-            this.current = this.forwardHistory.pop();
+        this.current += steps;
+        if(this.current >= this.history.length) {
+            this.current = this.history.length - 1;
         }
-        return this.current;
+        return this.history[this.current]
     }
 }
 

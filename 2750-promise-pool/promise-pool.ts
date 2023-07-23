@@ -2,14 +2,14 @@ type F = () => Promise<any>;
 
 async function promisePool(functions: F[], n: number): Promise<any> {
   let counter = 0;
-  async function evaluateNext() {
-        if (counter >= functions.length) return;
-        const fn = functions[counter];
-        counter++
-        await fn();
-        await evaluateNext();
-    }
-  const nPromises = Array(n).fill(null).map(evaluateNext);
+  async function fireNext() {
+    if (counter >= functions.length) return;
+    const fn = functions[counter];
+    counter++
+    await fn();
+    await fireNext();
+  }
+  const nPromises = Array(n).fill(null).map(fireNext);
   await Promise.all(nPromises);
 };
 

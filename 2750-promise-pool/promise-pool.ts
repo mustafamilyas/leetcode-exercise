@@ -1,27 +1,16 @@
 type F = () => Promise<any>;
 
-function promisePool(functions: F[], n: number): Promise<any> {
-  return new Promise((resolve, reject)=>{
-    let inProgressCount = 0;
-    let functionIndex = 0;
-    function helper() {
-      if (functionIndex >= functions.length) {
-        if (inProgressCount === 0) resolve(true);
-        return;
-      }
-
-            while (inProgressCount < n && functionIndex < functions.length) {
-                inProgressCount++;
-                const promise = functions[functionIndex]();
-                functionIndex++;
-                promise.then(() => {
-                    inProgressCount--;
-                    helper();
-                });
-            }
-        }
-        helper();
-  })
+async function promisePool(functions: F[], n: number): Promise<any> {
+  let counter = 0;
+  async function evaluateNext() {
+        if (counter >= functions.length) return;
+        const fn = functions[counter];
+        counter++
+        await fn();
+        await evaluateNext();
+    }
+  const nPromises = Array(n).fill(null).map(evaluateNext);
+  await Promise.all(nPromises);
 };
 
 /**

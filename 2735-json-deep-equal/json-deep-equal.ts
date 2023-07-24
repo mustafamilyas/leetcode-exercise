@@ -2,8 +2,10 @@ function areDeeplyEqual(o1: any, o2: any): boolean {
     if(typeof o1 !== 'object' || typeof o2 !== 'object' || o1 == null || o2 == null) {
         return o1 === o2;
     }
-    if(Array.isArray(o1) || Array.isArray(o2)) {
-        if(!Array.isArray(o1) || !Array.isArray(o2)) return false;
+    const isO1Array = Array.isArray(o1);
+    const isO2Array = Array.isArray(o2);  
+    if(isO2Array || isO1Array) {
+        if(!isO2Array || !isO1Array) return false;
     }
     const entries1 = Object.entries(o1);
     const entries2 = Object.entries(o2);

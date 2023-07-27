@@ -5,30 +5,28 @@ interface ExpressionResult {
 function parseTernary(expression: string): string {
     function parse(startIndex: number): ExpressionResult {
         let curPointer = startIndex;
-        const condition = expression[curPointer];
-        let trueVal = '';
-        let falseVal = '';
-        // to next expression
-        curPointer += 2;
-        if(expression[curPointer + 1] === '?') {
-            const {value, nextStart} = parse(curPointer);
-            trueVal = value;
-            curPointer = nextStart;
-        } else {
-            trueVal = expression[curPointer];
-            // to next expression
+
+        function goToNextExpression() {
             curPointer += 2;
         }
 
-        if(expression[curPointer + 1] === '?') {
-            const {value, nextStart} = parse(curPointer);
-            falseVal = value;
-            curPointer = nextStart;
-        } else {
-            falseVal = expression[curPointer];
-            // to next expression
-            curPointer += 2;
-        }
+        function getNextExpressionValue() {
+            let curValue = '';
+            if(expression[curPointer + 1] === '?') {
+                const {value, nextStart} = parse(curPointer);
+                curValue = value;
+                curPointer = nextStart;
+            } else {
+                curValue = expression[curPointer];
+                goToNextExpression();
+            }
+            return curValue;
+        };
+
+        const condition = expression[curPointer];
+        goToNextExpression();
+        const trueVal = getNextExpressionValue();
+        const falseVal = getNextExpressionValue();
 
         return {
             value: condition === 'F' ? falseVal : trueVal,

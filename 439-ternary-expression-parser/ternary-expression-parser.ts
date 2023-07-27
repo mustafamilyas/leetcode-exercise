@@ -8,7 +8,7 @@ function parseTernary(expression: string): string {
         const condition = expression[curPointer];
         let trueVal = '';
         let falseVal = '';
-        // nextStart expression
+        // to next expression
         curPointer += 2;
         if(expression[curPointer + 1] === '?') {
             const {value, nextStart} = parse(curPointer);
@@ -16,6 +16,7 @@ function parseTernary(expression: string): string {
             curPointer = nextStart;
         } else {
             trueVal = expression[curPointer];
+            // to next expression
             curPointer += 2;
         }
 
@@ -25,6 +26,7 @@ function parseTernary(expression: string): string {
             curPointer = nextStart;
         } else {
             falseVal = expression[curPointer];
+            // to next expression
             curPointer += 2;
         }
 

@@ -1,15 +1,12 @@
 type F = (...p: any[]) => any
 
 function debounce(fn: F, t: number): F {
-    let lastTOID = null;
+    let lastTOID: ReturnType<typeof setTimeout>;
     return function(...args) {
-        if(lastTOID) {
-            clearTimeout(lastTOID)
-            lastTOID = null;
-        }
+        clearTimeout(lastTOID)
+        
         lastTOID = setTimeout(()=>{
             fn.apply(this, args);
-            lastTOID = null
         }, t);
     }
 };

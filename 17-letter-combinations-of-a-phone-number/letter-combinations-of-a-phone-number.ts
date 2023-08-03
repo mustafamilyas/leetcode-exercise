@@ -1,22 +1,18 @@
 const letters = ['abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz'];
 
 function letterCombinations(digits: string): string[] {
-    function combine(combination: string[], nextIndex: number) {
-        if(nextIndex === digits.length) {
-            return combination;
+    if(digits === '') return []
+    const chosenLetters = digits.split('').map(e=>(letters[Number(e)-2].split('')));
+    
+    let result = chosenLetters[0];
+    
+    for(let i = 1; i < chosenLetters.length; i++) {
+        const tempResult = [];
+        for(let j = 0; j < result.length; j++) {
+            tempResult.push(...chosenLetters[i].map(e=>result[j] + e));
         }
-        const currentNumber = parseInt(digits[nextIndex])
-        const currentLetter = letters[currentNumber - 2];
-        if(combination.length === 0) return combine(currentLetter.split(''), nextIndex + 1);
-        const newCombination = [];
-        for(const c of combination) {
-            for(const l of currentLetter) {
-                newCombination.push(c + l)
-            }
-        }
-        return combine(newCombination, nextIndex + 1)
+        result = [...tempResult]
     }
-
-    ;
-    return combine([], 0);
+    
+    return result;
 };

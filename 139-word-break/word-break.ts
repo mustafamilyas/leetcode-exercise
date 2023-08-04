@@ -1,18 +1,12 @@
 function wordBreak(s: string, wordDict: string[]): boolean {
     const wordDictSet = new Set(wordDict);
-    const memo = {}
+    const wordLengthSet = new Set(wordDict.map((w)=>w.length));
+    const startSet = new Set([0])
 
-    function dp(start: number, end: number): boolean {
-        const key = `${start}:${end}`
-        if(start > s.length) return true;
-        if(end === s.length) return wordDictSet.has(s.slice(start, end));
-        if(memo[key] !== undefined) return memo[key]
-        const isWordInDict = wordDictSet.has(s.slice(start, end));
-        const noTake = dp(start, end + 1);
-        const take = isWordInDict && dp(end, end + 1)
-        memo[key] = take || noTake
-        return memo[key]
+    for(const start of startSet) {
+        for(const length of wordLengthSet) {
+            if(wordDictSet.has(s.slice(start, start + length))) startSet.add(start + length) 
+        }
     }
-
-    return dp(0, 1);
+    return startSet.has(s.length)
 };

@@ -12,17 +12,17 @@
  * }
  */
 
-function generateTrees(end: number, start: number = 1): Array<TreeNode | null> {
-    if (end < start) return [null];
-    if (end === start) return [new TreeNode(end)];
+function generateTrees(n: number, start: number = 1): Array<TreeNode | null> {
+    if (n < start) return [null];
+    if (n === start) return [new TreeNode(n)];
     const trees: TreeNode[] = [];
-    for (let i = start; i <= end; i++) {
+    for (let i = start; i <= n; i++) {
         const leftTrees = generateTrees(i - 1, start);
-        const rightTrees = generateTrees(end, i + 1);
+        const rightTrees = generateTrees(n, i + 1);
         for (const left of leftTrees) {
-        for (const right of rightTrees) {
-            trees.push(new TreeNode(i, left, right));
-        }
+            for (const right of rightTrees) {
+                trees.push(new TreeNode(i, left, right));
+            }
         }
     }
   return trees;

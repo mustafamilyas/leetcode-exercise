@@ -12,18 +12,23 @@
  * }
  */
 
-function generateTrees(n: number, start: number = 1): Array<TreeNode | null> {
-    if (n < start) return [null];
-    if (n === start) return [new TreeNode(n)];
-    const trees: TreeNode[] = [];
-    for (let i = start; i <= n; i++) {
-        const leftTrees = generateTrees(i - 1, start);
-        const rightTrees = generateTrees(n, i + 1);
-        for (const left of leftTrees) {
-            for (const right of rightTrees) {
-                trees.push(new TreeNode(i, left, right));
+function generateTrees(n: number): Array<TreeNode | null> {
+    function recurse(start: number, end: number): Array<TreeNode | null> {
+        if(end < start) return [null];
+        if(start === end) return [new TreeNode(start)];
+        
+        const result = []
+
+        for(let i = start; i <= end; i++) {
+            const leftChildren = recurse(start, i - 1);
+            const rightChildren = recurse(i + 1, end);
+            for(const left of leftChildren) {
+                for(const right of rightChildren) {
+                    result.push(new TreeNode(i, left, right))
+                }
             }
         }
+        return result;
     }
-  return trees;
+    return recurse(1, n);
 };

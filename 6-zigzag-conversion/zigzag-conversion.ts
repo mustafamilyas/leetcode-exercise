@@ -5,14 +5,10 @@ function convert(s: string, numRows: number): string {
     for(let i = 0; i < s.length; i++) {
         const arrIdx = idx % numRows;
         arr[arrIdx] += s[i]
-        if(isDown) {
-            if(idx % numRows === numRows - 1) {
-                isDown = false;
-            }
-        } else {
-            if(idx % numRows === 0) {
-                isDown = true;
-            }
+        if(isDown && idx % numRows === numRows - 1) {
+            isDown = false;
+        } else if (!isDown && idx % numRows === 0){
+            isDown = true;
         }
 
         if(isDown) {

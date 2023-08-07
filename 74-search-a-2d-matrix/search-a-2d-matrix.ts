@@ -6,9 +6,7 @@ function searchMatrix(matrix: number[][], target: number): boolean {
 
     while(start <= end) {
         const mid = start + Math.ceil((end - start) / 2);
-        const row = Math.floor(mid / n);
-        const col = mid % n;
-        const midValue = matrix?.[row]?.[col]
+        const midValue = matrix?.[Math.floor(mid / n)]?.[mid % n]
         if(midValue === target) return true;
         if(midValue > target) {
             end = mid - 1;

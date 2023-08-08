@@ -18,7 +18,6 @@ function search(nums: number[], target: number): number {
     let end = nums.length - 1;
     while(start <= end) {
         const mid = start + Math.ceil((end - start) / 2);
-        if(nums[mid] === target) return mid;
         if(nums[mid] > nums[nums.length - 1]) {
             start = mid + 1
         } else {

@@ -9,24 +9,19 @@ function search(nums: number[], target: number): boolean {
             start++
         } else  {
             if(nums[start] < nums[mid] && nums[mid] <= nums[end]) {
-                if(nums[mid] > target) {
-                    end = mid - 1;
-                } else {
-                    start = mid + 1;
-                }
+                // sorted
+                if(nums[mid] > target)  end = mid - 1;
+                else start = mid + 1;
             } else {
+                // splitted
                 if(nums[start] < nums[mid]) {
-                    if(nums[start] <= target && target < nums[mid]) {
-                        end = mid - 1;
-                    } else {
-                        start = mid + 1;
-                    }
+                    // pivot on the right
+                    if(nums[start] <= target && target < nums[mid]) end = mid - 1;
+                    else start = mid + 1;
                 } else {
-                    if(nums[mid] < target && target < nums[start]) {
-                        start = mid + 1;
-                    } else {
-                        end = mid - 1;
-                    }
+                    // pivot on the left
+                    if(nums[mid] < target && target < nums[start]) start = mid + 1;
+                    else end = mid - 1;
                 }
             }
         }

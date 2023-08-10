@@ -15,22 +15,18 @@ function search(nums: number[], target: number): boolean {
                     start = mid + 1;
                 }
             } else {
-                // console.log('splitted')
                 if(nums[start] < nums[mid]) {
-                    // console.log('pivot on the right')
                     if(nums[start] <= target && target < nums[mid]) {
                         end = mid - 1;
                     } else {
                         start = mid + 1;
                     }
                 } else {
-                    // console.log('pivot on the left', start, mid, end, '|', nums[start], nums[mid], nums[end])
                     if(nums[mid] < target && target < nums[start]) {
                         start = mid + 1;
                     } else {
                         end = mid - 1;
                     }
-                    // console.log(start, end)
                 }
             }
         }

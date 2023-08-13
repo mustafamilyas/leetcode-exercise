@@ -1,24 +1,20 @@
 function validPartition(nums: number[]): boolean {
-    const memo = {}
-    function dp(start: number): boolean {
-        if(start === nums.length) return true;
-        if(nums.length - start < 2) return false;
-        if(memo[start] !== undefined) return memo[start];
+    const memo = new Array(nums.length).fill(false);
 
-        const con1 = nums[start] === nums[start + 1];
-        const con2 = con1 && nums[start] === nums[start + 2];
-        const con3 = nums[start + 1] - nums[start] === 1 && nums?.[start + 2] - nums[start + 1] === 1;
+    memo[1] = nums[0] === nums[1];
+    memo[2] = (memo[1] && nums[1] === nums[2]) || (nums[1] - nums[0] === 1 && nums[2] - nums[1] === 1);
+
+    for(let i = 3; i < nums.length; i++) {
+        if(memo[i - 2] === false && memo[i - 3] === false) continue;
         let result = false;
-        if(con1) {
-            result ||= dp(start + 2);
-            if(con2) {
-                result ||= dp(start + 3);
-            }
-        } else if(con3){
-            result ||= dp(start + 3)
+        if(memo[i - 2]) {
+            result ||= nums[i] === nums[i - 1]
         }
-        memo[start] = result;
-        return memo[start];
+        if(!result && memo[i - 3]) {
+            result ||= (nums[i] === nums[i - 1] && nums[i] === nums[i - 2])
+            result ||= (nums[i] - nums[i - 1] === 1 && nums[i - 1] - nums[i - 2] === 1)
+        }
+        memo[i] = result
     }
-    return dp(0)
+    return memo[nums.length - 1]
 };

@@ -11,17 +11,14 @@
  */
 
 function partition(head: ListNode | null, x: number): ListNode | null {
-    let lessPointer = null;
-    let prev = null;
-    let cur = head;
-    // find lessPointer 
-    while(cur?.val < x) {
-        lessPointer = cur;
-        prev = cur;
-        cur = cur.next;
-    }
+    let lessPointer = null, prev = null, cur = head, startSwapping = false;
     while(cur) {
         if(cur.val >= x) {
+            startSwapping = true;
+            prev = cur;
+            cur = cur.next;
+        } else if (!startSwapping) {
+            lessPointer = cur;
             prev = cur;
             cur = cur.next;
         } else {

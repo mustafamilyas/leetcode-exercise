@@ -69,7 +69,7 @@ function sortItems(n: number, m: number, group: number[], beforeItems: number[][
         }
     }
 
-    // Hadle cases with cycles
+    // Handle cases with cycles
     if (count !== n) {
         return [];
     }

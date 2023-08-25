@@ -1,21 +1,20 @@
 function isInterleave(s1: string, s2: string, s3: string): boolean {
     if (s3.length != s1.length + s2.length) return false;
+    const memo = {};
 
-    const dp = new Array(s1.length + 1).fill(false).map(()=> new Array(s2.length + 1))
-    for (let i = 0; i <= s1.length; i++) {
-        for (let j = 0; j <= s2.length; j++) {
-            if (i == 0 && j == 0) {
-                dp[i][j] = true;
-            } else if (i == 0) {
-                dp[i][j] = dp[i][j - 1] && s2[j - 1] == s3[i + j - 1];
-            } else if (j == 0) {
-                dp[i][j] = dp[i - 1][j] && s1[i - 1] == s3[i + j- 1];
-            } else {
-                dp[i][j] = 
-                (dp[i - 1][j] && s1[i - 1] == s3[i + j- 1]) || 
-                (dp[i][j - 1] && s2[j - 1] == s3[i + j- 1]);
-            }
+    function dp(i1: number, i2: number, i3: number) {
+        if(i3 === s3.length) return true;
+        const key = `${i1}:${i2}:${i3}`;
+        if(memo[key] !== undefined) return memo[key]
+        let result = false
+        if(s3[i3] === s1[i1]) {
+            result ||= dp(i1+ 1, i2, i3 + 1)
         }
+        if(s3[i3] === s2[i2]) {
+            result ||= dp(i1, i2 + 1, i3 + 1)
+        }
+        memo[key] = result;
+        return result;
     }
-    return dp[s1.length][s2.length];
+    return dp(0, 0, 0);
 };

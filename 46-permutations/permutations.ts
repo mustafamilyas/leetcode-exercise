@@ -1,18 +1,11 @@
 function permute(nums: number[]): number[][] {
+    if(nums.length === 0) return [];
+    if(nums.length  === 1) return [nums]
     const result = []
-    function recurse(combine: Set<number>) {
-        if(combine.size === nums.length) {
-            result.push(Array.from(combine))
-            return;
-        }
-        for(const n of nums) {
-            if(!combine.has(n)) {
-                combine.add(n)
-                recurse(combine)
-                combine.delete(n)
-            }
-        }
+    for(let i = 0; i < nums.length; i++) {
+        const nextSet = [...nums.slice(0, i), ...nums.slice(i + 1)]
+        const localPermute = permute(nextSet).map((childSet) => [nums[i], ...childSet]);
+        result.push(...localPermute)
     }
-    recurse(new Set())
     return result;
 };

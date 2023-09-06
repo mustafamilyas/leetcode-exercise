@@ -19,7 +19,6 @@ function splitListToParts(head: ListNode | null, k: number): Array<ListNode | nu
         cur = cur.next;
         length++
     }
-    let nodePerK = Math.ceil(length / k);
     let nodeKIndex = 0;
     let counter = 0;
     cur = head;
@@ -30,7 +29,7 @@ function splitListToParts(head: ListNode | null, k: number): Array<ListNode | nu
                 prev.next = null;
             }
             result[nodeKIndex] = cur;
-            nodePerK = Math.ceil((length) / k)
+            const nodePerK = Math.ceil((length) / k)
             k--;
             length -= nodePerK
             counter = nodePerK

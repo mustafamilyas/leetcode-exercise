@@ -1,11 +1,10 @@
 function minDeletions(s: string): number {
     const map: Record<string, number> = {}
+    const counterMap: Record<number, number> = {};
     for(const c of s) {
         if(map[c]) map[c]++
         else map[c] = 1
     }
-
-    const counterMap: Record<number, number> = {};
     let max= 1;
     Object.values(map).forEach((n)=>{
         if(counterMap[n]) counterMap[n]++

@@ -6,7 +6,6 @@ function kWeakestRows(mat: number[][], k: number): number[] {
         for(let j = 0; j < rowLength; j++) {
             if(!mat?.[j]?.[i] && !weakest.has(j)) {
                 weakest.add(j)
-                if(weakest.size === k) break;
             }
         }
     } 

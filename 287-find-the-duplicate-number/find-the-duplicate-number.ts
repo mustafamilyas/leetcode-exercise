@@ -1,13 +1,10 @@
 function findDuplicate(nums: number[]): number {
-    for(let i = 0; i < nums.length; ) {
-        const cur = nums[i]
-        if(cur === i + 1) {
-            i++
-        } else if(cur === nums[cur - 1]) {
-            return cur
+    for(let i = 0; i < nums.length; i++) {
+        const index = Math.abs(nums[i]) - 1
+        if(nums[index] < 0) {
+            return Math.abs(nums[i])
         } else {
-            nums[i] = nums[cur - 1];
-            nums[cur - 1] = cur;
+            nums[index] *= -1
         }
     }
     return 0;

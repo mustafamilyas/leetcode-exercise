@@ -1,13 +1,9 @@
 function removeElement(nums: number[], val: number): number {
-    let swappedIndex = nums.findIndex((n) => n === val)
-    if(swappedIndex === -1) return nums.length;
-    for(let i = swappedIndex + 1; i < nums.length; i++) {
-        if(nums[i] !== val) {
-            const temp = nums[i];
-            nums[i] = nums[swappedIndex];
-            nums[swappedIndex] = temp;
-            swappedIndex++
+    let index = 0;
+    for(const n of nums) {
+        if(n !== val) {
+            nums[index++] = n;
         }
     }
-    return swappedIndex
+    return index;
 };

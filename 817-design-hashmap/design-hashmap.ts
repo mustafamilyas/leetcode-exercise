@@ -51,18 +51,14 @@ class MyHashMap {
         const arrKey = this.getArrayKey(key);
         let cur = this.memory[arrKey];
         if(cur === null) return;
-        if(cur?.key === key) {
-            this.memory[arrKey] = cur.next;
-        }
+        if(cur?.key === key) this.memory[arrKey] = cur.next;
         let prev = cur;
         cur = cur.next;
         while(cur && cur.key !== key) {
             prev = cur;
             cur = cur.next;
         }
-        if(cur) {
-            prev.next = cur.next;
-        }
+        if(cur) prev.next = cur.next;
     }
 }
 

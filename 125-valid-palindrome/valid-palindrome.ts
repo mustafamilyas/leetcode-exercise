@@ -1,21 +1,13 @@
 function isPalindrome(s: string): boolean {
-    const _s = s.trim().toLowerCase();
+    let _s = ''
+    for(const c of s) {
+        if(isAlphanumeric(c)) _s += c.toLowerCase();
+    }
     let left = 0, right = _s.length - 1;
     while(left <= right) {
-        if(isAlphanumeric(_s[left]) && isAlphanumeric(_s[right])) {
-            if(_s[left] !== _s[right]) return false;
-            right--
-            left++
-        } else {
-            if(isAlphanumeric(_s[left])) {
-                right--
-            } else if (isAlphanumeric(_s[right])) {
-                left++
-            } else {
-                right--
-                left++
-            }
-        }
+        if(_s[left] !== _s[right]) return false
+        right--
+        left++
     }
     return left > right;
 };

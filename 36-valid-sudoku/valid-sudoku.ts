@@ -1,15 +1,10 @@
 function isValidSudoku(board: string[][]): boolean {
-    function checkSquare(startRow: number, startCol: number) {
-        const set = new Set<string>();
-        for(let i = 0; i < 3; i++) {
-            for(let k = 0; k < 3; k++) {
-                if(board[startRow + i][startCol + k] === '.') continue;
-                if(set.has(board[startRow + i][startCol + k])) return false;
-                set.add(board[startRow + i][startCol + k])
-            }
-        }
-        return true;
-    }
+    const squareSets = new Array(3)
+        .fill(null)
+        .map(()=> new Array(3)
+            .fill(null)
+            .map(()=>new Set<string>())
+        )
 
     // check horizontal and vertical
     for(let i = 0; i < 9; i++) {
@@ -18,16 +13,12 @@ function isValidSudoku(board: string[][]): boolean {
         for(let k = 0; k < 9; k++) {
             if(board[i][k] !== '.' && setHorizontal.has(board[i][k])) return false;
             if(board[k][i] !== '.' && setVertical.has(board[k][i])) return false;
+            const squareSet = squareSets[Math.floor(i / 3)][Math.floor(k / 3)];
+            if(board[i][k] !== '.' && squareSet.has(board[i][k])) return false;
             setHorizontal.add(board[i][k])
             setVertical.add(board[k][i])
+            squareSet.add(board[i][k])
         }
-    }
-
-    // check square
-    for(let i = 0; i < 9; i += 3) {
-       for(let k = 0; k < 9; k += 3) {
-           if(!checkSquare(i, k)) return false;
-       }
     }
     return true;
 };

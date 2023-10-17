@@ -1,29 +1,16 @@
 function longestConsecutive(nums: number[]): number {
     if(!nums.length) return 0;
-    const map = new Map<number, number>();
-    for(const n of nums) {
-        map.set(n, -1)
-    }
-    let longest = 1;
-    for(const n of map.keys()) {
-        const curValue = map.get(n);
-        if(curValue === -1) {
-            let start = n;
-            let end = n + 1;
-            while(map.get(end)) {
-                const endValue = map.get(end);
-                if(endValue !== -1) {
-                    end += endValue;
-                    break;
-                }
-                end++
-            }
-            while(start < end && map.get(start) === -1) {
-                map.set(start, end - start);
-                start++
-            }
+    const u = Array.from(new Set(nums));
+    u.sort((a,b)=>a-b);
+    let max = 1;
+    let counter = 1;
+    for(let i = 1; i < u.length; i++) {
+        if(u[i] - u[i - 1] === 1) {
+            counter++;
+        } else {
+            max = Math.max(max, counter);
+            counter = 1;
         }
-        longest = Math.max(longest, map.get(n))
     }
-    return longest;
+    return Math.max(counter, max);
 };

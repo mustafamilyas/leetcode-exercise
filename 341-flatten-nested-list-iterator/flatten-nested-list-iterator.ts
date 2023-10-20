@@ -42,26 +42,12 @@ class NestedIterator {
     cur: number;
 
     constructor(nestedList: NestedInteger[]) {
-        this.nums = []
-        for(const nl of nestedList) {
-            this.nums.push(...this.flatten(nl))
-        }
+        this.nums = this.flatten(nestedList)
         this.cur = 0;
     }
 
-    flatten(ni: NestedInteger): number[] {
-        const result = [];
-        if(ni.isInteger()) {
-            result.push(ni.getInteger())
-        } else {
-            const list = ni.getList();
-            if(list.length > 0) {
-                for(const i of list) {
-                    result.push(...this.flatten(i))
-                }
-            } 
-        }
-        return result;
+    flatten(nestedList: NestedInteger[]): number[] {
+        return nestedList.flatMap((nl)=>nl.isInteger() ? nl.getInteger() : this.flatten(nl.getList()));
     }
 
     hasNext(): boolean {

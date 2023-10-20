@@ -46,7 +46,7 @@ class NestedIterator {
         for(const nl of nestedList) {
             this.nums.push(...this.flatten(nl))
         }
-        this.cur = -1;
+        this.cur = 0;
     }
 
     flatten(ni: NestedInteger): number[] {
@@ -65,11 +65,11 @@ class NestedIterator {
     }
 
     hasNext(): boolean {
-		return this.nums[this.cur + 1] !== undefined
+		return this.cur < this.nums.length;
     }
 
 	next(): number {
-		return this.nums[++this.cur]
+		return this.nums[this.cur++]
     }
 }
 

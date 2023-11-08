@@ -1,4 +1,6 @@
 function isReachableAtTime(sx: number, sy: number, fx: number, fy: number, t: number): boolean {
+    // edge case when the starting position equal to end position
+    // either stay or move atleast 2 times
     if(sx === fx && sy === fy) {
         return t !== 1
     }

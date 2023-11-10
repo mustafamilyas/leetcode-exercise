@@ -10,16 +10,13 @@ function restoreArray(adjacentPairs: number[][]): number[] {
   }
 
   const firstNumKey = Object.keys(map).find((numKey)=>map[numKey].length === 1);
-  const firstNum = Number(firstNumKey);
-  const res = [firstNum];
-  let nextKey = map[firstNum].find((n) => n !== res[res.length - 2])
+  let nextKey = Number(firstNumKey);
+  const res = []
 
-  while(
-      nextKey !== undefined
-  ) {
+  do {
       res.push(nextKey);
       nextKey = map[nextKey].find((n) => n !== res[res.length - 2])
-  }
+  } while (nextKey !== undefined)
 
   return res;
 };

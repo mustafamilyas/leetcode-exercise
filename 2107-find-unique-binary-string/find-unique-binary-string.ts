@@ -1,11 +1,9 @@
 function findDifferentBinaryString(nums: string[]): string {
-    let notAllowedSet = new Set<number>();
-    let lowestAllowed = 0;
-    for(const n of nums) {
-        notAllowedSet.add(parseInt(n, 2))
-        while(notAllowedSet.has(lowestAllowed)) {
-            lowestAllowed++
-        }
+    let result = '';
+
+    for(let i = 0; i < nums.length; i++) {
+        result += (nums[i][i] === '0') ? '1' : '0'
     }
-    return lowestAllowed.toString(2).padStart(nums[0].length, '0')
+
+    return result;
 };

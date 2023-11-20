@@ -1,32 +1,20 @@
 const GARBAGE_TYPES = ['M', 'P', 'G'];
 
 function garbageCollection(garbage: string[], travel: number[]): number {
-    const truckPosition = {M: 0, P: 0, G: 0};
+    const truckEndPosition = {M: -1, P: -1, G: -1};
     let times = 0;
 
-    for(let i = 0; i < garbage.length; i++) {
+    for(let i = garbage.length - 1; i >= 0; i--) {
         times += garbage[i].length;
-        const garbageNum = getGarbageNum(garbage[i]);
-        if(garbageNum.M) moveGarbageTruck('M', i)
-        if(garbageNum.P) moveGarbageTruck('P', i)
-        if(garbageNum.G) moveGarbageTruck('G', i)
-        
-    }
-    return times;
-    /**********************************************************/
-    function getGarbageNum(garbage: string) {
-        const garbageObj = {M: 0, P: 0, G: 0}
-        for(let i = 0; i < garbage.length; i++) {
-            garbageObj[garbage[i]]++
-        }
-        return garbageObj;
+        if(truckEndPosition.M < 0 && garbage[i].includes('M')) truckEndPosition.M = i
+        if(truckEndPosition.P < 0 && garbage[i].includes('P')) truckEndPosition.P = i
+        if(truckEndPosition.G < 0 && garbage[i].includes('G')) truckEndPosition.G = i
     }
 
-    function moveGarbageTruck(type: string, target: number) {
-        const startPosition = truckPosition[type] ?? 0;
-        for(let i = startPosition; i < target; i++) {
-            times += travel[i]
-        }
-        truckPosition[type] = target;
+    for(let i = 1; i < garbage.length; i++) {
+        if(truckEndPosition.M >= i) times += travel[i - 1]
+        if(truckEndPosition.P >= i) times += travel[i - 1]
+        if(truckEndPosition.G >= i) times += travel[i - 1]
     }
+    return times;
 };

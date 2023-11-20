@@ -25,7 +25,6 @@ function garbageCollection(garbage: string[], travel: number[]): number {
     function moveGarbageTruck(type: string, target: number) {
         const startPosition = truckPosition[type] ?? 0;
         for(let i = startPosition; i < target; i++) {
-            console.log('cost', travel[i])
             times += travel[i]
         }
         truckPosition[type] = target;

@@ -1,5 +1,3 @@
-const GARBAGE_TYPES = ['M', 'P', 'G'];
-
 function garbageCollection(garbage: string[], travel: number[]): number {
     const truckEndPosition = {M: -1, P: -1, G: -1};
     let times = 0;

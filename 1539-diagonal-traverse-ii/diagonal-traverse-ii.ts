@@ -1,18 +1,15 @@
 function findDiagonalOrder(nums: number[][]): number[] {
-    const diagonalRowSubArray = []
     const result = []
-    for(let i = 0; i < nums.length; i++) {
-        for(let k = 0; k < nums[i].length; k++) {
-            if(diagonalRowSubArray[i + k] === undefined) diagonalRowSubArray[i + k] = []
-            diagonalRowSubArray[i + k].push(nums[i][k]) 
-        }
+    const queue = [[0,0]]
+    const visited = new Set();
+    while(queue.length) {
+        const [i, k] = queue.shift();
+        const key = `${i}:${k}`
+        if(visited.has(key)) continue;
+        visited.add(key)
+        result.push(nums[i][k])
+        if(nums?.[i + 1]?.[k] !== undefined && !visited.has(`${i + 1}:${k}`)) queue.push([i + 1, k])
+        if(nums?.[i]?.[k + 1] !== undefined && !visited.has(`${i}:${k + 1}`)) queue.push([i, k + 1])
     }
-
-    for(const row of diagonalRowSubArray) {
-        for(let i = row.length - 1; i >= 0; i--) {
-            result.push(row[i])
-        }
-    }
-
     return result;
 };

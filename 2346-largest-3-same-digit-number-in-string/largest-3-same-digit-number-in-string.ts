@@ -1,19 +1,7 @@
 function largestGoodInteger(num: string): string {
-    let counter = num[0];
-    let highest = -1;
-
-    for(let i = 1; i < num.length; i++) {
-        if(num[i] === num[i - 1]) {
-            counter += num[i]
-        } else {
-            counter = num[i];
-        }
-
-        if(counter.length === 3) {
-            highest = Math.max(highest, parseInt(counter))
-        }
+    for(let i = 9; i >= 0; i--) {
+        const goodNum = i.toString().repeat(3);
+        if(num.includes(goodNum)) return goodNum
     }
-    if(highest === -1) return '';
-    if(highest === 0) return '000'
-    return highest.toString();
+    return ''
 };

@@ -9,15 +9,15 @@ var mapRomanToInt = map[string]int{
     }
 
 func romanToInt(s string) int {
-    runS := []rune(s)
+    runS := strings.Split(s, "")
     sLen := len(runS)
     result := 0
 
     for i := sLen - 1; i >= 0; i-- {
-        if i < sLen - 1 && mapRomanToInt[string(runS[i])] < mapRomanToInt[string(runS[i + 1])] {
-            result = result - mapRomanToInt[string(runS[i])]
+        if i < sLen - 1 && mapRomanToInt[runS[i]] < mapRomanToInt[runS[i + 1]] {
+            result = result - mapRomanToInt[runS[i]]
         } else {
-            result = result + mapRomanToInt[string(runS[i])]
+            result = result + mapRomanToInt[runS[i]]
         }
     }
 

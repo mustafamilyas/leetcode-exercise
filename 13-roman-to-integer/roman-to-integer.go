@@ -1,5 +1,4 @@
-func romanToInt(s string) int {
-    mapRomanToInt := map[string]int{
+var mapRomanToInt = map[string]int{
         "I": 1,
         "V": 5,
         "X": 10,
@@ -8,6 +7,8 @@ func romanToInt(s string) int {
         "D": 500,
         "M": 1000,
     }
+
+func romanToInt(s string) int {
     runS := []rune(s)
     sLen := len(runS)
     result := 0

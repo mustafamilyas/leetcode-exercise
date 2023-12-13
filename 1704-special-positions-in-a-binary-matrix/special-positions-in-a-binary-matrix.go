@@ -1,30 +1,21 @@
 func numSpecial(mat [][]int) int {
+    rowCount := make([]int, len(mat))
+    colCount := make([]int, len(mat[0]))
     special := 0;
 
     for row, rowValue := range mat {
-        oneIndex := -1;
         for col, colValue := range rowValue {
             if colValue == 1 {
-                if oneIndex == - 1 {
-                    oneIndex = col
-                } else {
-                    oneIndex = -1;
-                    break
-                }
+                rowCount[row]++
+                colCount[col]++
             }
         }
+    }
 
-        if oneIndex > -1 {
-            valid := true
-            for _row, _rowValue := range mat {
-                if (_row != row && _rowValue[oneIndex] == 1) {
-                    valid = false;
-                    break
-                }
-            }
-
-            if valid {
-                special ++
+    for row, rowValue := range mat {
+        for col, colValue := range rowValue {
+            if colValue == 1 && rowCount[row] == 1 && colCount[col] == 1 {
+                special++
             }
         }
     }

@@ -6,13 +6,9 @@ func onesMinusZeros(grid [][]int) [][]int {
 
     for row, rowValue := range grid {
         for col, colValue := range rowValue {
-            if colValue == 0 {
-                sumRows[row]--
-                sumCols[col]--
-            } else {
-                sumRows[row]++
-                sumCols[col]++
-            }
+            sumRows[row]+= 2 * colValue
+            sumCols[col]+= 2 * colValue
+            
         }
     }
 
@@ -21,7 +17,7 @@ func onesMinusZeros(grid [][]int) [][]int {
     for i := 0; i < m; i++ {
         diffs := make([]int, n)
         for k := 0; k < n; k++ {
-            diffs[k] = sumRows[i] + sumCols[k]
+            diffs[k] = sumRows[i] + sumCols[k] - m - n
         }
         result[i] = diffs
     }

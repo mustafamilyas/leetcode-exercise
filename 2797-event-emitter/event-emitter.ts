@@ -3,21 +3,25 @@ type Subscription = {
     unsubscribe: () => void
 }
 type EventPoolItem = {
+    id: number
     name: string
     callback: Callback
 }
 
 class EventEmitter {
     eventPool: EventPoolItem[]
+    counter: number;
     constructor() {
         this.eventPool = []
+        this.counter = 0;
     }
     subscribe(eventName: string, callback: Callback): Subscription {
-        const eventIndex = this.eventPool.length
-        this.eventPool.push({name: eventName, callback});
+        const id = this.counter++
+        this.eventPool.push({id, name: eventName, callback});
         return {
             unsubscribe: () => {
-                this.eventPool.splice(eventIndex, 1)
+                const eventIndex = this.eventPool.findIndex(e=>e.id === id);
+                if(eventIndex >= 0) this.eventPool.splice(eventIndex, 1)
             }
         };
     }

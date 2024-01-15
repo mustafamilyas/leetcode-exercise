@@ -1,19 +1,17 @@
 function findWinners(matches: number[][]): number[][] {
-    const record = new Map<number, number>();
+    const record: Record<number, number> = {};
     for(const [winner, loser] of matches) {
-        if(!record.has(winner)) record.set(winner, 0);
-        if(!record.has(loser)) record.set(loser, 1);
-        else record.set(loser, record.get(loser) + 1)
+        if(record[winner] == undefined) record[winner] = 0;
+        if(record[loser] == undefined) record[loser] = 1;
+        else record[loser]++
     }
     const result  = [[], []]
-    for(const [key, value] of record.entries()) {
+    for(const [key, value] of Object.entries(record)) {
         if(value === 0) {
-            result[0].push(key)
+            result[0].push(parseInt(key))
         } else if (value === 1) {
-            result[1].push(key)
+            result[1].push(parseInt(key))
         }
     }
-    result[0].sort((a,b)=>a-b)
-    result[1].sort((a,b)=>a-b)
     return result;
 };

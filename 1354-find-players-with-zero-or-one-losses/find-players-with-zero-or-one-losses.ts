@@ -1,17 +1,18 @@
 function findWinners(matches: number[][]): number[][] {
-    const record: Record<number, number> = {};
+    const record = new Map<number, number>();
+    let start = Number.MAX_SAFE_INTEGER, end = Number.MIN_SAFE_INTEGER;
     for(const [winner, loser] of matches) {
-        if(record[winner] == undefined) record[winner] = 0;
-        if(record[loser] == undefined) record[loser] = 1;
-        else record[loser]++
+        if(!record.has(winner)) record.set(winner, 0);
+        if(!record.has(loser)) record.set(loser, 1);
+        else record.set(loser, record.get(loser) + 1)
+        start = Math.min(start, winner, loser)
+        end = Math.max(end, winner, loser)
     }
     const result  = [[], []]
-    for(const [key, value] of Object.entries(record)) {
-        if(value === 0) {
-            result[0].push(parseInt(key))
-        } else if (value === 1) {
-            result[1].push(parseInt(key))
-        }
+    for(let key = start; key <= end; key++) {
+        const value = record.get(key)
+        if(value == 0) result[0].push(key)
+        else if(value == 1) result[1].push(key)
     }
     return result;
 };

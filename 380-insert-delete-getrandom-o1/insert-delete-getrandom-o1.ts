@@ -1,25 +1,33 @@
 class RandomizedSet {
-    set: Set<number>;
-
+    valuesIndex: Map<number, number>;
+    values: Array<number>
     constructor() {
-        this.set = new Set();
+        this.valuesIndex = new Map();
+        this.values = []
     }
 
     insert(val: number): boolean {
-        if(this.set.has(val)) return false;
-        this.set.add(val)
+        if(this.valuesIndex.has(val)) return false;
+        this.valuesIndex.set(val, this.values.length)
+        this.values.push(val);
         return true;
     }
 
     remove(val: number): boolean {
-        if(!this.set.has(val)) return false;
-        this.set.delete(val)
+        if(!this.valuesIndex.has(val)) return false;
+        // delete with pop, we need to switch with last value
+        const toBeRemovedIndex = this.valuesIndex.get(val);
+        this.values[toBeRemovedIndex] = this.values[this.values.length - 1];
+        this.valuesIndex.set(this.values[this.values.length - 1], toBeRemovedIndex)
+
+        this.valuesIndex.delete(val)
+        this.values.pop();
         return true;
     }
 
     getRandom(): number {
-        const index = Math.floor(Math.random() * this.set.size)
-        return Array.from(this.set)[index]
+        const index = Math.floor(Math.random() * this.values.length)
+        return this.values[index]
     }
 }
 

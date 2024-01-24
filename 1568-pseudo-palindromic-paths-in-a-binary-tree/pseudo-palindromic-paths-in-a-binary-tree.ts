@@ -13,28 +13,19 @@
  */
 
 function pseudoPalindromicPaths (root: TreeNode | null): number {
-    function recursive(cur: TreeNode | null, counter: Map<number, number>) {
+    function recursive(cur: TreeNode | null, counter: Set<number>) {
         if(cur === null) return 0;
-        counter.set(cur.val, (counter.get(cur.val) ?? 0) + 1);
+        counter.has(cur.val) ? counter.delete(cur.val) : counter.add(cur.val)
         if(cur.left === null && cur.right === null) {
-            let isOddAlreadyExist = false;
-            for(const value of counter.values()) {
-                if(value % 2) {
-                    if(isOddAlreadyExist) {
-                        counter.set(cur.val, counter.get(cur.val) - 1)
-                        return 0;
-                    }
-                    else isOddAlreadyExist = true;
-                }
-            }
-            counter.set(cur.val, counter.get(cur.val) - 1)
-            return 1;
+            const size = counter.size; 
+            counter.has(cur.val) ? counter.delete(cur.val) : counter.add(cur.val)
+            return size > 1 ? 0 : 1;
         }
         let left = 0, right = 0;
         if(cur.right) right = recursive(cur.right, counter)
         if(cur.left) left = recursive(cur.left, counter);
-        counter.set(cur.val, counter.get(cur.val) - 1)
+        counter.has(cur.val) ? counter.delete(cur.val) : counter.add(cur.val)
         return left + right
     }
-    return recursive(root, new Map())
+    return recursive(root, new Set())
 };

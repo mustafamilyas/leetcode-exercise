@@ -4,7 +4,7 @@ function numSquares(n: number): number {
 
     for(let i = 1; i <= n; i++) {
         const x = Math.floor(Math.sqrt(i));
-        for(let k = x; k >= 1; k--) {
+        for(let k = x; k >= x / 2; k--) {
             const remainder =  i - k ** 2;
             dp[i] = Math.min(1 + dp[remainder], dp[i] ?? Number.MAX_SAFE_INTEGER);
         }

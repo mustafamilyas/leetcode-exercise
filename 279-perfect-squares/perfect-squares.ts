@@ -1,16 +1,13 @@
-function numSquares(_n: number): number {
-    const memo = {}
-    function recursive(n: number) {
-        if(n === 1) return 1;
-        if(n === 0) return 0;
-        if(memo[n] !== undefined) return memo[n]
-        const x = Math.floor(Math.sqrt(n));
-        memo[n] = Number.MAX_SAFE_INTEGER;
-        for(let i = x; i >= x / 2; i-- ) {
-            const remainder = n - i * i;
-            memo[n] = Math.min(1 + recursive(remainder), memo[n]);
+function numSquares(n: number): number {
+    const dp = new Array(n + 1);
+    dp[0] = 0
+
+    for(let i = 1; i <= n; i++) {
+        const x = Math.floor(Math.sqrt(i));
+        for(let k = x; k >= 1; k--) {
+            const remainder =  i - k ** 2;
+            dp[i] = Math.min(1 + dp[remainder], dp[i] ?? Number.MAX_SAFE_INTEGER);
         }
-        return memo[n];
     }
-    return recursive(_n)
+    return dp[n];
 };

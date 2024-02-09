@@ -9,10 +9,10 @@ function largestDivisibleSubset(nums: number[]): number[] {
             const divisorNum = nums[i]
             if(currentNum % divisorNum === 0 && map.get(divisorNum).length + 1 > map.get(currentNum).length) {
                 map.set(currentNum, [...(map.get(divisorNum) || []), currentNum])
-                if(map.get(currentNum).length > (map.get(longestKey)?.length ?? 0)) {
-                    longestKey = currentNum
-                }
             }
+        }
+        if(map.get(currentNum).length > (map.get(longestKey)?.length ?? 0)) {
+            longestKey = currentNum
         }
     }
     return map.get(longestKey)

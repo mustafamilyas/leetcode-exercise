@@ -1,5 +1,5 @@
 function rearrangeArray(nums: number[]): number[] {
-    const res = [...nums]
+    const res = new Array(nums.length)
     let posIdx = -2, negIdx = -1;
     for(const n of nums) {
         if(n >= 0) res[posIdx+=2] = n;

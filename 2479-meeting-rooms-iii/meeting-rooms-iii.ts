@@ -2,7 +2,6 @@ function mostBooked(n: number, meetings: number[][]): number {
     meetings.sort((a, b)=>a[0] - b[0])
     const room = new Array(n);
     let maxIdx = 0;
-
     for(let m = 0; m < meetings.length; m++) {
         const [start, end] = meetings[m]
         let soomEmptyRoomIdx = -1;
@@ -19,7 +18,6 @@ function mostBooked(n: number, meetings: number[][]): number {
                 soomEmptyRoomIdx = -1;
                 break;
             }
-
             const soonEmptyRoom = room[soomEmptyRoomIdx];
             if(soomEmptyRoomIdx == -1 || curRoom[curRoom.length - 1] < soonEmptyRoom[soonEmptyRoom.length - 1]) {
                 soomEmptyRoomIdx = i;

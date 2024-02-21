@@ -19,7 +19,7 @@
 0  0000
  */
 function rangeBitwiseAnd(left: number, right: number): number {
-    let res = 0, leftmostLeft = 1, leftmostRight = 1, counter = 0;
+    let res = 0, leftmostLeft = 1, leftmostRight = 1;
     while(leftmostLeft === leftmostRight && leftmostLeft > 0) {
         leftmostLeft = Math.floor(Math.log2(left))
         leftmostRight = Math.floor(Math.log2(right))

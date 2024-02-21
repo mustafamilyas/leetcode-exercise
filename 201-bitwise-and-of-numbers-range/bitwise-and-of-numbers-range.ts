@@ -16,7 +16,7 @@
 9  1001
 10 1010
 ------
-4 100
+0  0000
  */
 function rangeBitwiseAnd(left: number, right: number): number {
     let res = 0, leftmostLeft = 1, leftmostRight = 1, counter = 0;

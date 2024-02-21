@@ -24,10 +24,10 @@ function rangeBitwiseAnd(left: number, right: number): number {
         leftmostLeft = Math.floor(Math.log2(left))
         leftmostRight = Math.floor(Math.log2(right))
         if(leftmostLeft === leftmostRight) {
-            const leftmost = 2 ** leftmostRight
+            const leftmost = 2 ** leftmostLeft
             res += leftmost;
-            left -= leftmost;
-            right -= leftmost;
+            left ^= leftmost;
+            right ^= leftmost;
         }
     };
     return res;

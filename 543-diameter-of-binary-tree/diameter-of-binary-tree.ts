@@ -21,6 +21,6 @@ function diameterOfBinaryTree(root: TreeNode | null): number {
         longest = Math.max(longest, left + right);
         return Math.max(left, right)
     }
-    const toLeafPathLongest = recurse(root)
-    return Math.max(toLeafPathLongest, longest);
+    recurse(root)
+    return longest;
 };

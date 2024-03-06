@@ -12,10 +12,7 @@
 
 function deleteDuplicates(head: ListNode | null): ListNode | null {
     if(head == null) return head;
-    let nextHead = head;
-    let prev = null;
-    let cur = head;
-
+    let nextHead = head, prev = null, cur = head;
     while(cur) {
         const prevBeforeChanges = prev;
         const watchedNode = cur;

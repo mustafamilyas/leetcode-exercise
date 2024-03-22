@@ -20,19 +20,16 @@ function isPalindrome(head: ListNode | null): boolean {
             acc = acc.slice(0, acc.length - 1)
         } else acc += slow.val
         slow = slow.next
-
-        if(fast == null) {}
-        else if(fast?.next == null) {
+        if(fast == null) {
+        } else if(fast?.next == null) {
             read = true
             fast = null
-        }
-        else if(fast?.next?.next == null) {
+        } else if(fast?.next?.next == null) {
             read = true;
             slow = slow.next;
             fast = null
-        } else {
-            fast = fast.next.next
-        }
+        } else fast = fast.next.next
+        
 
     }
     return true;

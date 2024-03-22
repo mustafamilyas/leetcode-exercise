@@ -29,8 +29,6 @@ function isPalindrome(head: ListNode | null): boolean {
             slow = slow.next;
             fast = null
         } else fast = fast.next.next
-        
-
     }
     return true;
 };

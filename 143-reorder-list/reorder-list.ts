@@ -15,10 +15,7 @@
  */
 function reorderList(head: ListNode | null): void {
     if(head === null || head.next === null) return;
-    
-    let slow = head;
-    let fast = head;
-    let prev = null;
+    let slow = head, fast = head, prev = null;
     
     while(fast?.next) {
         prev = slow;
@@ -26,13 +23,10 @@ function reorderList(head: ListNode | null): void {
         fast = fast.next?.next;
     }
     
-    if(prev) {
-        prev.next = null;    
-    }
+    if(prev) prev.next = null; // this should be the end of the list
     
-    let mid = reverse(slow, null);
-    let front = head;
-    
+    let mid = reverse(slow, null), front = head;
+
     while(front !== null) {
         if(front.next === null) {
             front.next = mid;

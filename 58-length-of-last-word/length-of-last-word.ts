@@ -1,12 +1,9 @@
 function lengthOfLastWord(s: string): number {
     let counter = 0;
-    let shouldStop = false;
     let i = s.length - 1;
-    while((i >= 0 || !counter) && !shouldStop) {
+    while((i >= 0 || !counter)) {
         if(s[i] === ' ') {
-            if(counter) {
-                shouldStop = true;
-            }
+            if(counter) break;
         } else {
             counter++
         }

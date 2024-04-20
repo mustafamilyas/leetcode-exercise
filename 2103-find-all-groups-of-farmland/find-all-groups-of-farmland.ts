@@ -17,7 +17,9 @@ function findFarmland(land: number[][]): number[][] {
             land[curx][cury] = -1;
             bottomRight[0] = Math.max(bottomRight[0], curx)
             bottomRight[1] = Math.max(bottomRight[1], cury)
-            stack.push(...MOVEMENTS.map(([dx, dy])=>[curx + dx, cury + dy]))
+            for(const [dx, dy] of MOVEMENTS) {
+                if(land?.[curx + dx]?.[cury + dy] === 1) stack.push([curx + dx, cury + dy]) 
+            }
         }
         return [x, y, ...bottomRight]
     }

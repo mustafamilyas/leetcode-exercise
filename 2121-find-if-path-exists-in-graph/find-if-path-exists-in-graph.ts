@@ -1,24 +1,32 @@
 function validPath(n: number, edges: number[][], source: number, destination: number): boolean {
-    const adjacentArray = new Array(n);
-    populateAdjacentArray();
-    const stack = [source];
-    const seen = new Set<number>();
-    while(stack.length) {
-        const curNode = stack.pop();
-        if(seen.has(curNode)) continue;
-        if(curNode === destination) return true;
-        seen.add(curNode)
-        const next = adjacentArray[curNode] ?? [];
-        stack.push(...next);
+    const unionGroup = new UnionFind(n);
+    for(const [from, to] of edges) {
+        unionGroup.union(from, to)
     }
-    return false;
-    /************* UTILS *************/
-    function populateAdjacentArray() {
-        for(const [from, to] of edges) {
-            if(adjacentArray[from]) adjacentArray[from].push(to)
-            else adjacentArray[from] = [to]
-            if(adjacentArray[to]) adjacentArray[to].push(from)
-            else adjacentArray[to] = [from]
+    return unionGroup.isConnected(source, destination)
+};
+
+class UnionFind {
+    roots: Array<number>;
+    constructor(n: number) {
+        this.roots = []
+        for(let i = 0; i < n; i++) {
+            this.roots.push(i)
         }
     }
-};
+
+    public find(x: number) {
+        if(this.roots[x] === x) return x;
+        else return this.find(this.roots[x])
+    }
+
+    public union(x: number, y: number) {
+        const rootX = this.find(x);
+        const rootY = this.find(y);
+        this.roots[rootX] = rootY;
+    }
+
+    public isConnected(x: number, y: number) {
+        return this.find(x) === this.find(y); 
+    }
+}

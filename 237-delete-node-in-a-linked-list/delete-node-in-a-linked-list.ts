@@ -15,14 +15,6 @@
  */
 function deleteNode(node: ListNode | null): void {
     if(node === null) return null
-    let current = node;
-    while(current.next) {
-        const next = current.next;
-        current.val = next.val;
-        if(next.next === null) {
-            current.next = null;
-        } else {
-            current = next;
-        }
-    }
+    node.val = node.next?.val;
+    node.next = node.next?.next;
 };

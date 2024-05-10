@@ -6,8 +6,7 @@ function kthSmallestPrimeFraction(arr: number[], k: number): number[] {
         fractionQueue.enqueue([i, last], arr[i] / arr[last])
     }
     for(let i = 1; i < k; i++) {
-        const {element} = fractionQueue.dequeue();
-        const [l, r] = element;
+        const [l, r] = fractionQueue.dequeue().element;
         fractionQueue.enqueue([l, r - 1], arr[l] / arr[r - 1])
     }
     const [l, r] = fractionQueue.front().element;

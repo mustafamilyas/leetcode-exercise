@@ -1,18 +1,19 @@
-const MOVES = [[-1, 0], [0, -1], [-1, -1], [0, 0], [-2, -2], [-2, -1], [-2, 0], [0, -2], [-1, -2]]
 function largestLocal(grid: number[][]): number[][] {
-    const n = grid.length;
-    const m = n - 2;
-    const result = new Array(m);
-    for(let i = 0; i < n; i++) {
-        for(let j = 0; j < n; j++) {
-            for(const [dx, dy] of MOVES) {
-                const px = i + dx;
-                const py = j + dy;
-                if(px < 0 || py < 0 || px >= m || py >= m) continue;
-                if(result[px] === undefined) result[px] = new Array(m)
-                result[px][py] = Math.max(result[px][py] ?? 0, grid[i][j])
+    let windowSize = 3;
+    let reduceArray = [];
+
+    for (let x = 0; x < grid.length - windowSize  + 1; x++){
+        reduceArray.push([]);
+        for (let y = 0; y < grid.length - windowSize  + 1; y++){
+            let maxValue = Number.MIN_SAFE_INTEGER;
+            for(let i = x;  i < x + 3; i++){
+                for(let j = y;  j < y + 3; j++){
+                    maxValue = Math.max(maxValue, grid[i][j]);
+                }
             }
+            reduceArray[reduceArray.length - 1].push(maxValue);
         }
     }
-    return result;
+
+    return reduceArray;
 };

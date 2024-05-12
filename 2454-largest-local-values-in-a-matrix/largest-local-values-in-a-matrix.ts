@@ -1,19 +1,20 @@
-function largestLocal(grid: number[][]): number[][] {
-    let windowSize = 3;
-    let reduceArray = [];
+let windowSize = 3;
 
-    for (let x = 0; x < grid.length - windowSize  + 1; x++){
-        reduceArray.push([]);
-        for (let y = 0; y < grid.length - windowSize  + 1; y++){
+function largestLocal(grid: number[][]): number[][] {
+    const n = grid.length;
+    const result = [];
+    for (let x = 0; x < n - windowSize + 1; x++){
+        result.push([]);
+        for (let y = 0; y < n - windowSize + 1; y++){
             let maxValue = Number.MIN_SAFE_INTEGER;
-            for(let i = x;  i < x + 3; i++){
-                for(let j = y;  j < y + 3; j++){
+            for(let i = x;  i < x + windowSize; i++){
+                for(let j = y;  j < y + windowSize; j++){
                     maxValue = Math.max(maxValue, grid[i][j]);
                 }
             }
-            reduceArray[reduceArray.length - 1].push(maxValue);
+            result[result.length - 1].push(maxValue);
         }
     }
 
-    return reduceArray;
+    return result;
 };

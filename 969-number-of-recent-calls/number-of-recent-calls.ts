@@ -1,16 +1,17 @@
 class RecentCounter {
     requests: Array<number>
+    tLimit: number
     constructor() {
         this.requests = []
+        this.tLimit = 3000
     }
 
     ping(t: number): number {
         this.requests.push(t);
-        let n = 1;
-        while(n <= this.requests.length && this.requests[this.requests.length - n] >= t - 3000) {
-            n++
+        while(this.requests.length && this.requests[0] < t - this.tLimit) {
+            this.requests.shift();
         }
-        return n - 1
+        return this.requests.length
     }
 }
 

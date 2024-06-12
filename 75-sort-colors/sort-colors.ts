@@ -6,14 +6,14 @@ function sortColors(nums: number[]): void {
 
     while(mid <= high) {
         if (nums[mid] === 0) {
-            [nums[low], nums[mid]] = [nums[mid], nums[low]];
-            low++;
-            mid++;
+            [nums[mid], nums[low]] = [nums[low], nums[mid]]
+            low++
+            mid++
         } else if (nums[mid] === 1) {
-            mid++;
+            mid++
         } else {
-            [nums[mid], nums[high]] = [nums[high], nums[mid]];
-            high--;
+            [nums[mid], nums[high]] = [nums[high], nums[mid]]
+            high--
         }
     }
 };

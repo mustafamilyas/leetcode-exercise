@@ -2,14 +2,18 @@
  Do not return anything, modify nums in-place instead.
  */
 function sortColors(nums: number[]): void {
-    const count = [0, 0, 0]
-    for(const n of nums) {
-        count[n]++
-    }
-    let ci = 0;
-    for(let i = 0; i < nums.length; i++) {
-        while(!count[ci]) ci++
-        nums[i] = ci;
-        count[ci]--
+    let low = 0, mid = 0, high = nums.length - 1;
+
+    while(mid <= high) {
+        if (nums[mid] === 0) {
+            [nums[low], nums[mid]] = [nums[mid], nums[low]];
+            low++;
+            mid++;
+        } else if (nums[mid] === 1) {
+            mid++;
+        } else {
+            [nums[mid], nums[high]] = [nums[high], nums[mid]];
+            high--;
+        }
     }
 };

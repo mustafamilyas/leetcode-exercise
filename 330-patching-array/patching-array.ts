@@ -1,18 +1,14 @@
 function minPatches(nums: number[], n: number): number {
-    let miss = 1, result = 0, i = 0;
-
-    while (miss <= n) {
-        if (i < nums.length && nums[i] <= miss) {
-            miss += nums[i];
-            i++;
+    let missingPatch = 1, numMissing = 0, i = 0;
+    while(missingPatch <= n) {
+        if(i < nums.length && nums[i] <= missingPatch) {
+            missingPatch += nums[i++]
         } else {
-            miss += miss;
-            result++;
+            missingPatch += missingPatch
+            numMissing++
         }
     }
-
-    return result;
-    
+    return numMissing
 };
 
 // 1 5 10

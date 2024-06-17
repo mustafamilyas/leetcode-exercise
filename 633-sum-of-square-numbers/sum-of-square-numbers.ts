@@ -1,10 +1,8 @@
 function judgeSquareSum(c: number): boolean {
-    let l = 0, r = Math.floor(Math.sqrt(c))
-    while(l <= r) {
-        const cur = l * l + r * r;
-        if(cur === c) return true;
-        if(cur < c) l++
-        else r--
+    for(let l = 0; l <= Math.trunc(Math.sqrt(c)); l++) {
+        const a = l * l
+        const b = Math.sqrt(c - a);
+        if(b === Math.trunc(b)) return true;
     }
     return false;
 };

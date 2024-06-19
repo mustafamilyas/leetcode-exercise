@@ -5,15 +5,17 @@ function minDays(bloomDay: number[], m: number, k: number): number {
         left = Math.min(b, left)
         right = Math.max(b, right)
     }
+    let res = right;
     while(left <= right) {
         const mid = Math.floor((left + right) / 2)
         if(getBouquetNum(mid) >= m) {
+            res = mid;
             right = mid - 1;
         } else {
             left = mid + 1
         }
     }
-    return getBouquetNum(right) >= m ? right : getBouquetNum(left) >= m ? left : -1
+    return res;
 
     function getBouquetNum(bloomMax: number) {
         let consecutive = 0;

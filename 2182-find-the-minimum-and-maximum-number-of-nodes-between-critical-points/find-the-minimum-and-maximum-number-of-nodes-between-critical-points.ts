@@ -14,13 +14,14 @@ function nodesBetweenCriticalPoints(head: ListNode | null): number[] {
     if(head === null) return [-1, -1];
     let cur = head.next, prev = head, curIdx = 1;
     const distance = [];
+    let minDistance = Number.MAX_SAFE_INTEGER;
     while(cur) {
         if(cur.next && (
             (prev.val > cur.val && cur.next.val > cur.val) ||
             (prev.val < cur.val && cur.next.val < cur.val)
         )) {
             distance.push(curIdx)
-
+            if(distance.length >= 2) minDistance =  Math.min(minDistance, distance[distance.length - 1] - distance[distance.length - 2])
         }
         prev = cur
         cur = cur.next;
@@ -29,9 +30,5 @@ function nodesBetweenCriticalPoints(head: ListNode | null): number[] {
     const dl = distance.length;
     if(dl < 2) return [-1, -1];
     const maxDistance = distance[dl - 1] - distance[0];
-    let minDistance = maxDistance;
-    for(let i = 1; i < dl; i++) {
-        minDistance = Math.min(minDistance, distance[i] - distance[i - 1])
-    }
     return [minDistance, maxDistance]
 };

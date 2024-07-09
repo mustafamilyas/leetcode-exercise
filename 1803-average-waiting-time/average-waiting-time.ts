@@ -1,6 +1,7 @@
 function averageWaitingTime(customers: number[][]): number {
     let time = 0, waitingTime = 0;
-    for(const [start, processTime] of customers) {
+    for(let i = 0; i < customers.length; i++) {
+        const [start, processTime] = customers[i]
         if(time <= start) {
             waitingTime += processTime
             time = start + processTime

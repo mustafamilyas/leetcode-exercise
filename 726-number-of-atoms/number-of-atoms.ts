@@ -1,6 +1,6 @@
 function countOfAtoms(formula: string): string {
     const stack = []
-    let i = 0, counter: Record<string, number> = {}
+    let i = 0, counter: Record<string, number> = {}, result = ''
     while(i < formula.length) {
         const charCode = formula.charCodeAt(i)
         if(formula[i] === '(') {
@@ -15,20 +15,17 @@ function countOfAtoms(formula: string): string {
             i++
             let number = getNumber();
             multiplyCounter(counter, number);
-            const prevCounter = stack.pop() ?? {}
-            counter = mergeCounter(prevCounter, counter)
+            counter = mergeCounter(stack.pop() ?? {}, counter)
         } else {
             console.log('unhandled case', formula[i])
         }
     }
-    const keys = Object.keys(counter);
-    keys.sort();
-    let result = ''
+    const keys = Object.keys(counter).sort();
     for(let i = 0; i < keys.length; i++) {
         result += keys[i] + (counter[keys[i]] > 1 ? counter[keys[i]] : '')
     }
     return result;
-
+    // ========================== UTILS ==========================
     function getElement() {
         let name = formula[i];
         i++
@@ -37,7 +34,6 @@ function countOfAtoms(formula: string): string {
         }
         return name;
     }
-
     function getNumber() {
         let number = '';
         while(formula.charCodeAt(i) >= 48 && formula.charCodeAt(i) <= 57) {
@@ -45,13 +41,11 @@ function countOfAtoms(formula: string): string {
         }
         return number ? parseInt(number): 1;
     }
-
     function multiplyCounter(counter: Record<string, number>, n: number) {
         for(const key in counter) {
             if(counter[key]) counter[key] *= n
         }
     }
-
     function mergeCounter(counterA: Record<string, number>, counterB: Record<string, number>) {
         const merged = {...counterB}
         for(const key in counterA) {

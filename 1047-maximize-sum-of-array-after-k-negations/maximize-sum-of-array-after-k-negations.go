@@ -14,7 +14,7 @@ func largestSumAfterKNegations(nums []int, k int) int {
             smallAbs = valueAbs
         }
     }
-    if k == 0 || smallAbs == 0 || k % 2 == 0{
+    if smallAbs == 0 || k % 2 == 0{
         return sum
     }
     return sum + 2 * smallAbs * -1

@@ -21,22 +21,18 @@ function toposort(edges: number[][], k: number) {
     for(const [from, to] of edges) {
         if(!adjacentMap[from]) adjacentMap[from] = [to]
         else adjacentMap[from].push(to)
-
         indegree[to - 1]++
     }
-    const queue = []
+    const queue = [], order = []
     for(let i = 0; i < k; i++) {
         if(indegree[i] === 0) queue.push(i + 1) 
     }
-    const order = []
     while(queue.length) {
         const cur = queue.shift();
         order.push(cur)
         const nextNode = adjacentMap[cur] ?? []
         for(const next of nextNode) {
-            if(--indegree[next - 1] === 0) {
-                queue.push(next)
-            }
+            if(--indegree[next - 1] === 0) queue.push(next)
         }
     }
     return order;

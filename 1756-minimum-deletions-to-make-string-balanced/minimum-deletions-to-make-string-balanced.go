@@ -5,7 +5,7 @@ func minimumDeletions(s string) int {
         if s[i] == 'b' {
             bCount++
         } else {
-            deletion = int(math.Min(float64(deletion + 1), float64(bCount)))
+            deletion = min(deletion + 1, bCount)
         }
     }
     return deletion;

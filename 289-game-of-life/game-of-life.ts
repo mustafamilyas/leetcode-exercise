@@ -12,11 +12,8 @@ function gameOfLife(board: number[][]): void {
     for(let i = 0; i < m; i++) {
         for(let k = 0; k < n; k++) {
             const livingCounter = countLiving(i, k);
-            if(prevState[i][k] === 0) {
-                if(livingCounter === 3) board[i][k] = 1;
-            } else if (prevState[i][k] === 1) {
-                if(livingCounter > 3 || livingCounter < 2) board[i][k] = 0
-            }
+            if(prevState[i][k] === 0 && livingCounter === 3) board[i][k] = 1;
+            else if (prevState[i][k] === 1 && (livingCounter > 3 || livingCounter < 2)) board[i][k] = 0
         }
     }
 

@@ -11,8 +11,8 @@ func postorder(root *Node) []int {
     if root == nil {
         return result
     }
-    for i := 0; i < len(root.Children); i++ {
-        result = append(result, postorder(root.Children[i])...)
+    for _, child := range root.Children {
+        result = append(result, postorder(child)...)
     }
     result = append(result, root.Val)
     return result;

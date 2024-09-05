@@ -1,31 +1,13 @@
 function missingRolls(rolls: number[], mean: number, n: number): number[] {
-    let diff = 0;
-    for(let i = 0; i < rolls.length; i++) {
-        diff += rolls[i] - mean;
+    const curSum = rolls.reduce((a,b)=>a + b, 0);
+    const goalSum = (rolls.length + n) * mean
+    let nSum = goalSum - curSum;
+    if(nSum < n || nSum > n * 6) return []
+    const nArray = [];
+    for(let i = 0; i < n; i++) {
+        const value = Math.ceil(nSum / (n - i))
+        nArray.push(value)
+        nSum -= value;
     }
-    if(diff === 0) return new Array(n).fill(mean)
-    const result = []
-    if(diff > 0) {
-        const maxDiff = mean - 1;
-        let avgInc = diff / n;
-        if(avgInc > maxDiff) return []
-        for(let i = 0; i < n; i++) {
-            avgInc = diff / (n - i)
-            const curValue = Math.ceil(avgInc)
-            result.push(mean - curValue)
-            diff -= curValue
-        }
-    } else if (diff < 0) {
-        diff *= -1
-        const maxDiff = 6 - mean;
-        let avgInc = diff / n;
-        if(avgInc > maxDiff) return []
-        for(let i = 0; i < n; i++) {
-            avgInc = diff / (n - i)
-            const curValue = Math.ceil(avgInc)
-            result.push(curValue + mean)
-            diff -= curValue
-        }
-    }
-    return result;
+    return nArray;
 };

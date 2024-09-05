@@ -5,7 +5,6 @@ function missingRolls(rolls: number[], mean: number, n: number): number[] {
     }
     if(diff === 0) return new Array(n).fill(mean)
     const result = []
-    console.log(diff)
     if(diff > 0) {
         const maxDiff = mean - 1;
         let avgInc = diff / n;

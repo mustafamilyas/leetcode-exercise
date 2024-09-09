@@ -18,7 +18,7 @@ function spiralMatrix(m: number, n: number, head: ListNode | null): number[][] {
     while(cur !== null) {
         result[row][col] = cur.val;
         let d = movements[idx]
-        if(result?.[row + d[0]]?.[col + d[1]] == null || result?.[row + d[0]]?.[col + d[1]] !== -1) {
+        if(result?.[row + d[0]]?.[col + d[1]] == null || result[row + d[0]][col + d[1]] !== -1) {
             idx = (idx + 1) % 4;
             d = movements[idx]
         }

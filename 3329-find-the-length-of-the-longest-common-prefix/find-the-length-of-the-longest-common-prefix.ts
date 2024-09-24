@@ -1,13 +1,7 @@
 function longestCommonPrefix(arr1: number[], arr2: number[]): number {
     const trie = new Trie();
-    for(const n of arr1) {
-        trie.insert(n)
-    }
-    let max = 0;
-    for(const n of arr2) {
-        max = Math.max(max, trie.longestPrefix(n))
-    }
-    return max;
+    arr1.forEach((a)=>trie.insert(a))
+    return arr2.reduce((a, b)=>Math.max(a, trie.longestPrefix(b)), 0)
 };
 
 class Node {
@@ -24,7 +18,6 @@ class Trie {
     constructor() {
         this.root = new Node();
     }
-
     insert(num: number) {
         const split = num.toString().split('').map(Number);
         let current = this.root;
@@ -34,7 +27,6 @@ class Trie {
         }
         current.isWord = true;
     }
-
     longestPrefix(num: number) {
         const split = num.toString().split('').map(Number);
         let current = this.root;

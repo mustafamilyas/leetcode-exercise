@@ -3,9 +3,8 @@ function countMaxOrSubsets(nums: number[]): number {
     const dp = new Array(max + 1).fill(0)
     dp[0] = 1
     for(const n of nums) {
-        const prev = [...dp]
-        for(let i = 0; i <= max; i++) {
-            dp[i | n] += prev[i]
+        for(let i = max; i >= 0; i--) {
+            dp[i | n] += dp[i]
         }
     }
     return dp[max]

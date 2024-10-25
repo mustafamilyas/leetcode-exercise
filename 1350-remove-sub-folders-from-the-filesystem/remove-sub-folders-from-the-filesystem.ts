@@ -42,7 +42,7 @@ class Trie {
     }
 
     toArray() {
-        return toPath(this.root).map((e)=>'/' + e)
+        return toPath(this.root)
     }
 }
 
@@ -53,10 +53,10 @@ function toPath(trie: Node): string[] {
         const children = toPath(trie.children[k])
         if(children.length) {
             for(const c of children) {
-                result.push(`${k}/${c}`)
+                result.push(`/${k}${c}`)
             }
         } else {
-            result.push(k)
+            result.push(`/${k}`)
         }
     }
     return result;

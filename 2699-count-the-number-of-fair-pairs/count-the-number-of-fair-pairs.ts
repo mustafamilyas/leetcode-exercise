@@ -5,7 +5,6 @@ function countFairPairs(nums: number[], lower: number, upper: number): number {
         while(l < lr && nums[l] + nums[lr - 1] >= lower) {
             lr--
         }
-
         lr = Math.max(lr, l + 1)
         while(l < ur && nums[l] + nums[ur - 1] > upper) {
             ur--

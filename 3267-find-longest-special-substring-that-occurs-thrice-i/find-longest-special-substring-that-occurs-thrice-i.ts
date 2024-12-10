@@ -13,7 +13,11 @@ function maximumLength(s: string): number {
     for(const c of counter) {
         if(c.length <= 1) continue;
         c.sort((a,b)=>b-a)
-        if(c.length >= 2 && c[0] - 1 > 0 && c[0] - 1 <= c[1]) max = Math.max(max, c[0] - 1)
+        if(
+            c.length >= 2 && 
+            c[0] - 1 > 0 && 
+            c[0] - 1 <= c[1]
+        ) max = Math.max(max, c[0] - 1)
         if(c.length >= 3) max = Math.max(max, c[2])
     }
     return max

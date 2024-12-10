@@ -12,13 +12,27 @@ function maximumLength(s: string): number {
     }
     for(const c of counter) {
         if(c.length <= 1) continue;
-        c.sort((a,b)=>b-a)
+        const t = getThreeHighest(c)
         if(
-            c.length >= 2 && 
-            c[0] - 1 > 0 && 
-            c[0] - 1 <= c[1]
-        ) max = Math.max(max, c[0] - 1)
-        if(c.length >= 3) max = Math.max(max, c[2])
+            t.length >= 2 && 
+            t[0] - 1 > 0 && 
+            t[0] - 1 <= t[1]
+        ) max = Math.max(max, t[0] - 1)
+        if(t.length >= 3) max = Math.max(max, t[2])
     }
     return max
 };
+
+function getThreeHighest(c: number[]) {
+    const highest = [];
+    for(const a of c) {
+        if(highest.length === 0) highest.push(a)
+        else {
+            const idx = highest.findIndex(h => a > h);
+            if(idx >= 0) highest.splice(idx, 0, a);
+            else if(highest.length < 3) highest.push(a)
+            if(highest.length > 3) highest.pop()
+        }
+    }
+    return highest;
+}

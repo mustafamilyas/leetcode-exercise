@@ -12,15 +12,14 @@ function maxChunksToSorted(arr: number[]): number {
         }
         window.push([s, e])
     }
-    let chunk = 1, cur = window[0];
+    let chunk = 1, e = window[0][1]
     for(let i = 1; i < window.length; i++) {
-        const [s, e] = cur;
         const [ns, ne] = window[i]
         if(e > ns) {
-            cur[1] = Math.max(e, ne)
+            e = Math.max(e, ne)
         } else {
             chunk++
-            cur = window[i]
+            e = ne
         }
     } 
     return chunk;

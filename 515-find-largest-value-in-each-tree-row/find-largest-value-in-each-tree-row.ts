@@ -15,17 +15,17 @@
 function largestValues(root: TreeNode | null): number[] {
     if(root == null) return [];
     const result = [];
-    let stack = [root]
-    while(stack.length) {
+    let queue = [root]
+    while(queue.length) {
         const children = []
         let max = Number.MIN_SAFE_INTEGER;
-        for(const node of stack) {
+        for(const node of queue) {
             max = Math.max(node.val, max);
             if(node.left) children.push(node.left)
             if(node.right) children.push(node.right)
         }
         result.push(max)
-        stack = children;
+        queue = children;
     }
     return result;
 };

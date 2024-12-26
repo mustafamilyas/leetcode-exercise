@@ -1,14 +1,13 @@
 function findTargetSumWays(nums: number[], target: number): number {
-    let ways = 0;
-    pick(0, 0)
-    return ways;
-    
-    function pick(index: number, curSum: number) {
-        if(index === nums.length) {
-            if(curSum === target) ways++
-            return;
+    let prevValueCount = new Map<number, number>([[0, 1]]);
+    let curValueCount = new Map<number, number>();
+    for(const n of nums) {
+        for(const [k, v] of prevValueCount.entries()) {
+            curValueCount.set(k - n, (curValueCount.get(k - n) ?? 0) + v)
+            curValueCount.set(k + n, (curValueCount.get(k + n) ?? 0) + v)
         }
-        pick(index + 1, curSum + nums[index])
-        pick(index + 1, curSum - nums[index])
+        prevValueCount = curValueCount; 
+        curValueCount = new Map<number, number>();
     }
+    return prevValueCount.get(target) ?? 0;
 };

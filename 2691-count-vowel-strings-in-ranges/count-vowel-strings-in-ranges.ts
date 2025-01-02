@@ -4,7 +4,6 @@ const isSpecial = (word: string) => isVowels(word[0]) && isVowels(word[word.leng
 function vowelStrings(words: string[], queries: number[][]): number[] {
     const counter = [];
     let sum = 0;
-    const specialWordSet = new Set<string>();
     for(let i = 0; i < words.length; i++) {
         if(isSpecial(words[i])) sum++
         counter.push(sum)

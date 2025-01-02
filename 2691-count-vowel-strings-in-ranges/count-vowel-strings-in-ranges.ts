@@ -6,13 +6,10 @@ function vowelStrings(words: string[], queries: number[][]): number[] {
     let sum = 0;
     const specialWordSet = new Set<string>();
     for(let i = 0; i < words.length; i++) {
-        if(isSpecial(words[i])) {
-            sum++
-            specialWordSet.add(words[i])
-        }
+        if(isSpecial(words[i])) sum++
         counter.push(sum)
     }
-    return queries.map(([start, end]) => specialWordSet.has(words[start]) ? counter[end] - counter[start] + 1 : counter[end] - counter[start] )
+    return queries.map(([start, end]) => isSpecial(words[start]) ? counter[end] - counter[start] + 1 : counter[end] - counter[start] )
 };
 
 // 1 1 2 3 4

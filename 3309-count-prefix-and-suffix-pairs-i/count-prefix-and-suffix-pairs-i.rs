@@ -3,15 +3,11 @@ impl Solution {
         let mut counter = 0;
         for i in (1..words.len()) {
             for k in (0..i) {
-                if Self::is_prefix_suffix(words[k].clone(), words[i].clone()) {
+                if words[i].starts_with(&words[k]) && words[i].ends_with(&words[k]) {
                     counter+=1
                 };
             };
         };
         counter
-    }
-
-    pub fn is_prefix_suffix(w1: String, w2: String) -> bool {
-        w2.starts_with(&w1) && w2.ends_with(&w1)
     }
 }

@@ -9,7 +9,6 @@ impl Solution {
         };
         let mut res: Vec<Vec<i32>> = vec![vec![-1; n]; m];
         let mut queue: VecDeque<(usize, usize)> = VecDeque::new();
-
         for (i, row) in is_water.iter().enumerate() {
             for (k, col) in row.iter().enumerate() {
                 if *col == 1 {
@@ -18,17 +17,13 @@ impl Solution {
                 }
             }
         }
-
         while !queue.is_empty() {
             if let Some(pos) = queue.pop_front() {
                 let (x, y) = pos;
                 let cur_value = res[x][y];
-
-                for d in movements {
-                    let [dx, dy] = d;
+                for [dx, dy] in movements {
                     let nx = x as isize + dx;
                     let ny = y as isize + dy;
-
                     if nx < 0 || ny < 0 || nx >= m as isize || ny >= n as isize || res[nx as usize][ny as usize] >= 0 {
                         continue;
                     }
@@ -39,12 +34,10 @@ impl Solution {
         }
         res
     }
-
     pub fn get_dimensions<T>(matrix: &Vec<Vec<T>>) -> Option<(usize, usize)> {
         if matrix.is_empty() {
             return None
         }
-
         let m = matrix.len();
         let n = matrix[0].len();
         Some((m, n))

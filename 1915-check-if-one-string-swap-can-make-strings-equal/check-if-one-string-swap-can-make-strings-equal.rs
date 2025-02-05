@@ -3,26 +3,10 @@ impl Solution {
         if s1.len() != s2.len() {
             return false;
         }
-        let mut diff: Vec<usize> = vec![];
-        for i in 0..s1.len() {
-            let idx = i as usize;
-            if s1.chars().nth(idx) != s2.chars().nth(idx) {
-                diff.push(idx);
-            }
-            if diff.len() > 2 {
-                return false;
-            }
+        let mut diff: Vec<(char, char)> = s1.chars().zip(s2.chars()).filter_map(|(c1, c2)| if c1 != c2 { Some((c1, c2))} else { None }).collect();
+        if diff.len() == 2 && diff[0].0 == diff[1].1 && diff[0].1 == diff[1].0 {
+            return true;
         }
-        if diff.len() == 1 {
-            return false;
-        }
-        if diff.len() == 2 {
-            let x = diff[0];
-            let y = diff[1];
-            if s1.chars().nth(x) != s2.chars().nth(y) || s1.chars().nth(y) != s2.chars().nth(x) {
-                return false;
-            }
-        }
-        true
+        diff.len() == 0
     }
 }

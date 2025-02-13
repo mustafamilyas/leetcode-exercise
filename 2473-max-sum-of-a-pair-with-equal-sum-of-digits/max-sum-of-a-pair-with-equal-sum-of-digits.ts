@@ -1,12 +1,12 @@
 function maximumSum(nums: number[]): number {
-    const sumDigitToMax = new Map<number, number>();
+    const sumDigitToMax = new Array(73); // 10^9 max sum digit is 72 (8 * 9)
     let max = -1;
     for(const v of nums) {
         let sumDigit = getSumDigit(v);
-        if(sumDigitToMax.has(sumDigit)) {
-            max = Math.max(max, v + sumDigitToMax.get(sumDigit))
+        if(sumDigitToMax[sumDigit] !== undefined) {
+            max = Math.max(max, v + sumDigitToMax[sumDigit])
         }
-        sumDigitToMax.set(sumDigit, Math.max(sumDigitToMax.get(sumDigit) ?? 0, v))
+        sumDigitToMax[sumDigit] = Math.max(sumDigitToMax[sumDigit] ?? 0, v)
     }
     return max;
 };

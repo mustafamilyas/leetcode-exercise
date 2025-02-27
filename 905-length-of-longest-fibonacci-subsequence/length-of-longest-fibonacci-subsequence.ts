@@ -6,11 +6,12 @@ function lenLongestFibSubseq(arr: number[]): number {
         for(let k = i + 1; k < arr.length; k++) {
             const prev = arr[k] - arr[i];
             if(!set.has(prev) || prev >= arr[i]) continue;
-            const key = `${prev}:${arr[i]}`;
-            if(!counter.has(key)) counter.set(key, 2)
+            const prevKey = `${prev}:${arr[i]}`;
+            const prevValue = counter.get(prevKey) ?? 2
             const nextKey = `${arr[i]}:${arr[k]}`;
-            counter.set(nextKey, counter.get(key) + 1)
-            longest = Math.max(longest, counter.get(nextKey))
+            const nextValue = prevValue + 1
+            counter.set(nextKey, nextValue)
+            longest = Math.max(longest, nextValue)
         }
     }
     return longest

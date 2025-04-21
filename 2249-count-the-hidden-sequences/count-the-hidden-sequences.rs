@@ -9,7 +9,7 @@ impl Solution {
             highest = std::cmp::max(current, highest);
         }
         match highest.checked_sub(lowest) {
-            Some(result) => std::cmp::max(0, upper - lower + 1 - (highest - lowest)),
+            Some(result) => std::cmp::max(0, upper - lower + 1 - result),
             None => 0 
         }        
     }

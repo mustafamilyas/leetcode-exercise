@@ -11,7 +11,6 @@ impl Solution {
             let space = cur - prev;
             unique_spaces.push(space);
             sorted_u_spaces_w_idx.push((space, i));
-            max = std::cmp::max(max, space);
         }
         sorted_u_spaces_w_idx.sort_by_key(|&(v, _)| v);
         for i in 0..start_time.len() {

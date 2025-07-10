@@ -14,7 +14,6 @@ impl Solution {
             max = std::cmp::max(max, space);
         }
         sorted_u_spaces_w_idx.sort_by_key(|&(v, _)| v);
-        // println!("{:?} {:?}", unique_spaces, sorted_u_spaces_w_idx);
         for i in 0..start_time.len() {
             let block = end_time[i] - start_time[i];
             let mut found = false;
@@ -22,7 +21,6 @@ impl Solution {
             // no need to check all
             for i_i in (max_check..sorted_u_spaces_w_idx.len()).rev() {
                 let (v, s_i) = sorted_u_spaces_w_idx[i_i];
-                // println!("{} {}", i_i, s_i);
                 if v < block {
                     break;
                 }
@@ -31,7 +29,6 @@ impl Solution {
                     break;
                 }
             }
-            // println!("{} {} {} {}", i, block, found, max_check);
             if found {
                 max = std::cmp::max(max, block + unique_spaces[i] + unique_spaces.get(i + 1).unwrap_or(&0));
             } else {

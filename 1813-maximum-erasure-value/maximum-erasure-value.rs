@@ -14,7 +14,7 @@ impl Solution {
             }
             set.insert(*v);
             r_count += *v;
-            m_count = std::cmp::max(r_count, m_count);
+            m_count = m_count.max(r_count)
         } 
         m_count
     }

@@ -1,11 +1,14 @@
 function maxSum(nums: number[]): number {
-    nums.sort((a, b)=>b - a);
-    let sum = 0;
-    let i = 0;
-    do {
-        if (nums[i] <= 0 && i > 0) break;
-        if (nums[i] !== nums[i - 1]) sum += nums[i];
-        i++;
-    } while(i < nums.length)
-    return sum;
+    const set = new Set();
+    let max = Number.MIN_SAFE_INTEGER, sum = 0;
+    for(const n of nums) {
+        if (n <= 0) {
+            max = Math.max(max, n)
+            continue;
+        }
+        if (set.has(n)) continue
+        sum += n;
+        set.add(n);
+    }
+    return set.size == 0 ? max : sum;
 };

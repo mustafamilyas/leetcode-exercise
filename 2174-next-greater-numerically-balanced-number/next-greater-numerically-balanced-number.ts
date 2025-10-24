@@ -18,7 +18,6 @@ function generate_combination(d: number, max: number, counter: number[]): number
             counter[i]++;
             if(d == max) {
                 if(is_valid_number(counter)) {
-                    console.log(counter, i)
                     res.push(i)
                 } 
             } else {
@@ -40,8 +39,13 @@ function can_insert(n: number, max: number, counter: number[]) {
     if(n > max) return true;
     if(counter[n] > 0) {
         if(counter[n] + 1 <= n) return true
-        return false; 
+        return false;
     }
+    let sum = 0;
+    for(let i = 1; i < 10; i++) {
+        if(counter[i] > 0 || i == n) sum += i;
+    }
+    if(sum > max) return false;
     return true;
 }
 

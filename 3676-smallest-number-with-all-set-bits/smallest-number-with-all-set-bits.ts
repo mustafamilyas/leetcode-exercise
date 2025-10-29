@@ -1,4 +1,3 @@
 function smallestNumber(n: number): number {
-    const bit = n.toString(2).length;
-    return parseInt('1'.repeat(bit), 2);
+    return (1 << Math.ceil(Math.log2(n + 1))) - 1;
 };

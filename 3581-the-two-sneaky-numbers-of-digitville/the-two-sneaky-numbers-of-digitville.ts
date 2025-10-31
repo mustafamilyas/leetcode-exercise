@@ -4,6 +4,7 @@ function getSneakyNumbers(nums: number[]): number[] {
     for(const v of nums) {
         if(set.has(v)) res.push(v);
         set.add(v)
+        if(res.length == 2) return res
     }
     return res
 };

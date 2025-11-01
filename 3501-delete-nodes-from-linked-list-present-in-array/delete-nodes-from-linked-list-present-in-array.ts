@@ -12,13 +12,20 @@
 
 function modifiedList(nums: number[], head: ListNode | null): ListNode | null {
     const set = new Set(nums);
-    let nextHead = head, prev = null, cur = head;
-    while (cur !== null) {
-        if (set.has(cur.val)) {
-            if(prev === null) nextHead = cur.next;
-            else prev.next = cur.next;
-        } else prev = cur;
-        cur = cur.next;
+    let newHead = head;
+    let cur = head, prev = null;
+    while(cur !== null) {
+        if(set.has(cur.val)) {
+            if(prev == null) {
+                newHead = cur.next;
+            } else {
+                prev.next = cur.next;
+            }
+            cur = cur.next;
+        } else {
+            prev = cur;
+            cur = cur.next;
+        }
     }
-    return nextHead;
+    return newHead;
 };

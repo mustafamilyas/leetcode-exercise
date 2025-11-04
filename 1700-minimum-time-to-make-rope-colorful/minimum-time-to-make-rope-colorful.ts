@@ -1,17 +1,17 @@
 function minCost(colors: string, neededTime: number[]): number {
-    let validCost = 0, prevCostBeforeConsecutive = 0, totalCost = 0;
-    for(let i = 0; i < colors.length; i++) {
-        totalCost += neededTime[i]
-        if(colors[i] === colors?.[i - 1]) {
-            validCost = Math.max(
-                validCost, 
-                prevCostBeforeConsecutive + neededTime[i]
-            )
+    let cost = 0;
+    let prev = neededTime[0];
+    for(let i = 1; i < colors.length; i++) {
+        if(colors[i] == colors[i - 1]) {
+            if(neededTime[i] > prev) {
+                cost += prev;
+                prev = neededTime[i]
+            } else {
+                cost += neededTime[i];
+            }
         } else {
-            validCost += neededTime[i]
-            prevCostBeforeConsecutive = validCost - neededTime[i]
+            prev = neededTime[i];
         }
     }
-
-    return totalCost - validCost;
+    return cost;
 };

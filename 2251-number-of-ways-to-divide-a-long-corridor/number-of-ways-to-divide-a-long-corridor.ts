@@ -9,15 +9,16 @@ function numberOfWays(corridor: string): number {
 
   for(const furniture of corridor) {
     if(furniture === Furniture.Seat) {
-      if(seatCounter % 2 === 0) {
-        divider = (divider  * (plantCounter + 1)) % (1e9 + 7)
-        plantCounter = 0;
-      }
-      seatCounter++;
+        if(seatCounter % 2 === 0) {
+            divider = (divider  * (plantCounter + 1)) % (1e9 + 7)
+            plantCounter = 0;
+        }
+        seatCounter++;
     } else {
-      if(seatCounter >= 2 && seatCounter % 2 === 0) {
-        plantCounter++;
-      }
+        // This make sure we only increment the plant on the edge of two seats
+        if(seatCounter >= 2 && seatCounter % 2 === 0) {
+            plantCounter++;
+        }
     }
   }
 

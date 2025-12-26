@@ -1,18 +1,19 @@
 function bestClosingTime(customers: string): number {
-    const rightSum = new Array(customers.length).fill(0);
+    const closePenalty = Array.from({length: customers.length + 1}, () => 0);
+    let penalty = 0;
     for(let i = customers.length - 1; i >= 0; i--) {
-        rightSum[i] = (rightSum?.[i + 1] ?? 0) + (customers[i] === 'Y' ? 1 : 0) 
+        if(customers[i] == 'Y') penalty++
+        closePenalty[i] = penalty
     }
-    let leftCost = 0;
-    let minCloseIndex = 0;
-    let minCloseCost = rightSum[0];
-    for(let i = 1; i <= customers.length; i++) {
-        if(customers[i - 1] === 'N') leftCost++
-        const curCost = leftCost + (rightSum?.[i] ?? 0);
-        if(curCost < minCloseCost) {
-            minCloseCost = curCost;
-            minCloseIndex = i;
-        }
+    penalty = 0;
+    let min = -1, minTotal = Number.MAX_SAFE_INTEGER;
+    for(let i = 0; i <= customers.length; i++) {
+        const totalPenalty = penalty + closePenalty[i];
+        if(totalPenalty < minTotal) {
+            min = i
+            minTotal = totalPenalty
+        };
+        if(customers[i] == 'N') penalty++
     }
-    return minCloseIndex;
+    return min;
 };

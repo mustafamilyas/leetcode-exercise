@@ -8,13 +8,11 @@ function separateSquares(squares: number[][]): number {
     }
     const target = total / 2;
     for (let it = 0; it < 80; it++) {
-        const mid = (lo + hi) * 0.5;
+        const mid = (lo + hi) /2;
         let below = 0;
         for (const [, y, l] of squares) {
             if (mid > y) {
-                let h = mid - y;
-                if (h > l) h = l;
-                below += h * l;
+                below += l * Math.min(mid - y, l);
             }
         }
         if (below < target) lo = mid;

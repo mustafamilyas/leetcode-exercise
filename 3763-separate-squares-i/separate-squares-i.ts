@@ -1,5 +1,5 @@
 function separateSquares(squares: number[][]): number {
-    let lo = 1e18, hi = -1e18;
+    let lo = 1e9, hi = 0;
     let total = 0;
     for (const [, y, l] of squares) {
         if (y < lo) lo = y;
@@ -7,8 +7,8 @@ function separateSquares(squares: number[][]): number {
         total += l * l;
     }
     const target = total / 2;
-    for (let it = 0; it < 80; it++) {
-        const mid = (lo + hi) /2;
+    while (lo < hi) {
+        const mid = normalize((lo + hi) / 2);
         let below = 0;
         for (const [, y, l] of squares) {
             if (mid > y) {
@@ -17,6 +17,12 @@ function separateSquares(squares: number[][]): number {
         }
         if (below < target) lo = mid;
         else hi = mid;
+        const diff = normalize(hi - lo);
+        if(diff <= 1e-5) break;
     }
     return lo;
 };
+
+function normalize(n: number): number {
+    return Math.round(n * 1e5) / 1e5;
+}

@@ -3,26 +3,25 @@ function largestMagicSquare(grid: number[][]): number {
     const n = grid[0].length;
     const verticalSum = Array.from({ length: n }, () => new Array(m).fill(0));
     const horizontalSum = Array.from({ length: m }, () => new Array(n).fill(0));
-    initCacheSum();
     let max = 1;
-    
+    initCacheSum();
     for(let row = 0; row < m; row++) {
+        let maxSize = m - row;
         for(let col = 0; col < n - 1; col++) {
-            for(let right = col + 1; right < n; right++) {
-                if(isMagicSquare(row, col, right)) {
-                    max = Math.max(max, right - col + 1)
+            maxSize = Math.min(maxSize, n - col);
+            for(let size = 2; size <= maxSize; size++) {
+                if(isMagicSquare(row, col, size)) {
+                    max = Math.max(max, size)
                 }
             }
 
         }
     }
-
     return max;
 
-    function isMagicSquare(topRow: number, leftCol: number, rightCol: number) {
-        const size = rightCol - leftCol + 1;
-        const bottomRow = topRow + rightCol - leftCol;
-        if(bottomRow >= m) return false;
+    function isMagicSquare(topRow: number, leftCol: number, size: number) {
+        let rightCol = leftCol + size - 1;
+        const bottomRow = topRow + size - 1;
         const magicNumber = horizontalSum[topRow][rightCol] - (leftCol == 0 ? 0 : horizontalSum[topRow][leftCol - 1]);
         // check vertical
         for(let col = leftCol; col <= rightCol; col++) {
@@ -48,8 +47,7 @@ function largestMagicSquare(grid: number[][]): number {
         for(let col = 0; col < n; col++) {
             for(let row = 0; row < m; row++) {
                 const prev = row == 0 ? 0 : verticalSum[col][row - 1]
-                verticalSum[col][row] = prev + grid[row][col]
-                
+                verticalSum[col][row] = prev + grid[row][col] 
             }
         }
         for(let row = 0; row < m; row++) {

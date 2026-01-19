@@ -9,9 +9,10 @@ function maxSideLength(mat: number[][], threshold: number): number {
         for(let col = 0; col < n; col++) {
             maxSize = Math.min(maxSize, n - col);
             let startSize = Math.max(max, 1);
-            for(let size = startSize; size <= maxSize; size++) {
+            for(let size = maxSize; size >= startSize; size--) {
                 if(isMagicSquare(row, col, size)) {
                     max = Math.max(max, size)
+                    break;
                 }
             }
 

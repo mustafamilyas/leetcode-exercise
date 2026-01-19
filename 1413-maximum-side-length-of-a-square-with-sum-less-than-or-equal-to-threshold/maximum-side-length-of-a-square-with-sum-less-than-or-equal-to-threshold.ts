@@ -23,9 +23,9 @@ function maxSideLength(mat: number[][], threshold: number): number {
     function isMagicSquare(topRow: number, leftCol: number, size: number) {
         const bottomRow = topRow + size - 1;
         const rightCol = leftCol + size - 1;
-        const leftArea = prefixSum?.[bottomRow]?.[leftCol - 1] ?? 0;
-        const topArea = prefixSum?.[topRow - 1]?.[rightCol] ?? 0;
-        const topLeftArea = prefixSum?.[topRow - 1]?.[leftCol - 1] ?? 0;
+        const leftArea = leftCol == 0 ? 0:  prefixSum[bottomRow][leftCol - 1];
+        const topArea = topRow == 0 ? 0: prefixSum[topRow - 1][rightCol];
+        const topLeftArea = leftCol == 0 || topRow == 0 ? 0 : prefixSum[topRow - 1][leftCol - 1];
         const area = prefixSum[bottomRow][rightCol] - leftArea - topArea + topLeftArea;
         return area <= threshold;
     }
@@ -35,7 +35,7 @@ function maxSideLength(mat: number[][], threshold: number): number {
             for(let col = 0; col < n; col++) {
                 const leftArea = col == 0 ? 0 : prefixSum[row][col - 1];
                 const topArea = row == 0 ? 0 : prefixSum[row - 1][col];
-                const topLeftArea = prefixSum?.[row - 1]?.[col - 1] ?? 0;
+                const topLeftArea = row == 0 || col == 0 ? 0 : prefixSum[row - 1][col - 1];
                 prefixSum[row][col] = leftArea + topArea - topLeftArea + mat[row][col]
             }
         }

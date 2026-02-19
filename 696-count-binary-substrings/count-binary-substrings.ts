@@ -1,13 +1,11 @@
 function countBinarySubstrings(s: string): number {
-    let cur = s[0];
-    let curCount = 0;
+    let curCount = 1;
     let prevCount = 0;
     let substr = 0;
-    for(let i = 0; i <= s.length; i++) {
-        if(cur == s[i]) curCount++
+    for(let i = 1; i <= s.length; i++) {
+        if(s[i] == s[i - 1]) curCount++
         else {
             substr += Math.min(curCount, prevCount)
-            cur = s[i]
             prevCount = curCount;
             curCount = 1;
         }

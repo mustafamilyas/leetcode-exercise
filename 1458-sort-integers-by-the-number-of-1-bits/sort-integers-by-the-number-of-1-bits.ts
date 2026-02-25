@@ -1,28 +1,15 @@
 function sortByBits(arr: number[]): number[] {
-    const map = new Map<number, number[]>()
-    for(const num of arr) {
-        const key = getKey(num);
-        const cur = map.get(key) || []
-        cur.push(num)
-        map.set(key, cur)
-    }
-
-    const result = [];
-    for(let i = 0; i <= 14; i++) {
-        const cur = map.get(i);
-        if(cur) {
-            cur.sort((a,b)=>a-b);
-            result.push(...cur)
+    const memo: Record<number, number> = {};
+    return arr.map((n) => [n, getKey(n)]).sort((a, b) =>(a[1] == b[1] ? a[0] - b[0] : a[1] - b[1])).map((n)=>n[0])
+    function getKey(n: number): number {
+        if(typeof memo[n] == 'number') return memo[n]
+        let num1 = 0;
+        let _n = n;
+        while(_n > 0) {
+            if((_n & 1) == 1) num1++;
+            _n >>= 1;
         }
+        memo[n] = num1;
+        return num1;
     }
-    return result;
 };
-
-function getKey(n: number): number {
-    let num1 = 0;
-    for(let i = 1; i <= 14 && n > 0; i++) {
-        num1 += (n & 1)
-        n = n >> 1
-    }
-    return num1;
-}

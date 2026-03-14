@@ -1,8 +1,5 @@
 function getHappyString(n: number, k: number): string {
-    let total = 3;
-    for(let i = 1; i < n; i++) {
-        total *= 2;
-    } 
+    const total = 3 * 2 ** (n - 1);
     if(k > total) return "";
     let str = "";
     let div = total / 3;

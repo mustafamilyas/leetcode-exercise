@@ -4,9 +4,8 @@ function areSimilar(mat: number[][], k: number): boolean {
     const newK = k % n;
     if(newK == 0) return true;
     for(let i = 0; i < m; i++) {
-        const even = i % 2 == 0;
         for(let j = 0; j < n; j++) {
-            const nextIndex = even ? ((n - newK + j )% n) : ((n - newK + j )% n)
+            const nextIndex = ((n - newK + j )% n)
             if(mat[i][j] != mat[i][nextIndex]) return false;
         }
     }

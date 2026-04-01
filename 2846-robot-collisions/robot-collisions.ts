@@ -25,4 +25,3 @@ function survivedRobotsHealths(positions: number[], healths: number[], direction
     }
     return healths.filter((v)=>v)
 };
-

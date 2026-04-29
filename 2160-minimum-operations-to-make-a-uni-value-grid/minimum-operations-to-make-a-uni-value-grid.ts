@@ -1,25 +1,23 @@
 function minOperations(grid: number[][], x: number): number {
-    const values = [];
-    const mod = grid[0][0] % x;
+    const arr = [];
+    let lSum = 0, rSum = 0, prevRangeSum = 0, min = Number.MAX_SAFE_INTEGER, l = 0, r = 0;
     for(const row of grid) {
-        for(const v of row) {
-            if(v % x !== mod) return -1;
-            values.push(Math.trunc(v / x))
+        for(const cell of row) {
+            rSum += cell;
+            arr.push(cell);
+            if(((arr[0] - cell) % x) != 0) return -1;
         }
     }
-    values.sort((a, b)=> a - b);
-    const left = [0], n = values.length;
-    for(let i = 1; i < n; i++) {
-        left.push(i * (values[i] - values[i - 1]) + left[i - 1])
+    arr.sort((a, b) => a - b);
+    while(l < arr.length) {
+        while(arr[l] == arr[r]) r++;
+        lSum += prevRangeSum;
+        prevRangeSum = (r - l) * arr[l];
+        rSum -= prevRangeSum;
+        const diff = ((arr[l] * l - lSum) + (rSum - (arr[l] * (arr.length - r)))) / x;
+        min = Math.min(min, diff);
+        l = r;
     }
-    let right = 0, min = left[n - 1];
-    for(let i = n - 2; i > -1; i--) {
-        const next = (n - i - 1) * (values[i + 1] - values[i]) + right;
-        const combined = next + left[i]
-        if(combined > min) break;
-        min = combined;
-        right = next;
 
-    }
     return min;
 };

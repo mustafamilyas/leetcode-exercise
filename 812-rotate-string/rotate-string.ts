@@ -1,7 +1,6 @@
 function rotateString(s: string, goal: string): boolean {
     if(s.length !== goal.length) return false;
-    if(s == goal) return true;
-    for(let i = 1; i < s.length; i++) {
+    for(let i = 0; i < s.length; i++) {
         const cur = s.slice(i, goal.length) + s.slice(0, i);
         if(cur == goal) return true;
     } 

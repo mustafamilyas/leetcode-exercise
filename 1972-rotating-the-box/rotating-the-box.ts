@@ -1,25 +1,22 @@
-function rotateTheBox(box: string[][]): string[][] {
-    const m = box.length, n = box[0].length;
-    const result = new Array(n).fill(null).map(()=> new Array(m).fill('.'));
-    for(let i = 0; i < m; i++) {
-        let count = 0;
-        for(let k = 0; k <= n; k++) {
-            if(box[i][k] === '#') count++
-            else if(box[i][k] === '*' || box[i][k] == null) {
-                const col = m - i - 1
-                const row = k;
-                if(k < n) result[row][col] = '*'
-                for(let c = 1; c <= count; c++) {
-                    result[row - c][col] = '#'
-                }
-                count = 0;
+function rotateTheBox(boxGrid: string[][]): string[][] {
+    const m = boxGrid.length;
+    const n = boxGrid[0].length;
+    const res = Array.from({ length: n }, () => new Array(m).fill('.'));
+
+    for(let i = 0;i < m; i++) {
+        let k = 0;
+        while(k < n) {
+            let next = k, count = 0;
+            while(next < n && boxGrid[i][next] != '*') {
+                if(boxGrid[i][next] == '#') count++
+                next++;
             }
+            for(let y = 1; y <= count; y++) {
+                res[next - y][m - i - 1] = '#';
+            }
+            if(next < n) res[next][m - i - 1] = boxGrid[i][next]
+            k = next + 1;
         }
     }
-    return result;
+    return res;
 };
-// n = 3 - 
-// [2, 0] => [0, 0] 3 - 2 - 1
-// [1, 0] => [0, 1] 3 - 1 - 1
-// [0, 0] => [0, 2] 3
-// [0, 3] => [3, 0]

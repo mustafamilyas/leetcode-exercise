@@ -7,13 +7,16 @@ function rotateTheBox(boxGrid: string[][]): string[][] {
         let k = 0;
         while(k < n) {
             let next = k, count = 0;
+            // count leaf
             while(next < n && boxGrid[i][next] != '*') {
                 if(boxGrid[i][next] == '#') count++
                 next++;
             }
+            // back fill
             for(let y = 1; y <= count; y++) {
                 res[next - y][m - i - 1] = '#';
             }
+            // stone fill and move next
             if(next < n) res[next][m - i - 1] = boxGrid[i][next]
             k = next + 1;
         }

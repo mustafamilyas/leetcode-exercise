@@ -1,27 +1,12 @@
 function findMin(nums: number[]): number {
     const n = nums.length;
-    if(nums.length == 1 || nums[0] < nums[n - 1]) return nums[0];
-    let l = 0, r = n - 1;
-    while(l < r - 1) {
-        const mid = Math.floor((l + r) / 2);
-        if(nums[mid] > nums[mid + 1]) return nums[mid + 1];
-        if(nums[l] < nums[r]) return nums[l]
-        if(nums[l] == nums[r]) {
-            if(nums[l] == nums[mid]) {
-                if(l == mid) {
-                    break; 
-                } else {
-                    l++
-                    r--
-                    continue;
-                }
-            }
-        }
-        if (nums[mid] >= nums[l]) {
-            l = mid
-        } else {
-            r = mid
-        }
+    if(nums.length == 1) return nums[0];
+    
+    return dnc(0, n - 1);
+
+    function dnc(l: number, r: number): number {
+        if(l == r || nums[l] < nums[r]) return nums[l];
+        const mid = Math.trunc((l + r) / 2);
+        return Math.min(dnc(l, mid), dnc(mid + 1, r))
     }
-    return Math.min(nums[l], nums[r])
 };

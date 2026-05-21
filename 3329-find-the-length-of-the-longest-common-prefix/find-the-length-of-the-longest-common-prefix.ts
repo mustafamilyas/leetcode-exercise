@@ -1,8 +1,32 @@
 function longestCommonPrefix(arr1: number[], arr2: number[]): number {
-    const trie = new Trie();
-    arr1.forEach((a)=>trie.insert(a))
-    return arr2.reduce((a, b)=>Math.max(a, trie.longestPrefix(b)), 0)
+    const prefixSet = new Set();
+    let max = 0;
+    for(let n of arr1) {
+        while(n > 0) {
+            prefixSet.add(n);
+            n = Math.trunc(n / 10)
+        }
+    }
+    for(let n of arr2) {
+        while(n > 0 && !prefixSet.has(n)) {
+            n = Math.trunc(n / 10);
+        }
+        if(prefixSet.has(n)) {
+            max = Math.max(max, countDigit(n))
+        }
+    }
+
+    return max;
 };
+
+function countDigit(n: number): number {
+    let digit = 1;
+    while(n > 9) {
+        n = Math.trunc(n / 10);
+        digit++
+    }
+    return digit;
+}
 
 class Node {
     isWord: boolean;

@@ -1,30 +1,38 @@
 function search(nums: number[], target: number): number {
-
-    function bs(start: number, end: number): number {
-        while(start <= end) {
-            const mid = start + Math.ceil((end - start) / 2);
-            if(nums[mid] === target) return mid;
-            if(nums[mid] > target) {
-                end = mid - 1;
+    const n = nums.length;
+    let l = 0, r = n - 1;
+    while(l < r) {
+        const mid = Math.floor((l + r) / 2);
+        if(nums[mid] == target) return mid;
+        if(nums[l] < nums[r]) {
+            if(nums[mid] < target) {
+                l = mid + 1;
             } else {
-                start = mid + 1;
+                r = mid;
+            }
+        } else {
+            if(nums[l] <= nums[mid]) {
+                if(nums[l] > target || nums[mid] < target) {
+                    l = mid + 1
+                } else {
+                    r = mid;
+                }
+            } else {
+                if(nums[l] > target && nums[mid] < target) {
+                    l = mid + 1
+                } else {
+                    r = mid;
+                }
             }
         }
-        return -1;
     }
-
-    // search rotate point
-    let start = 0;
-    let end = nums.length - 1;
-    while(start <= end) {
-        const mid = start + Math.ceil((end - start) / 2);
-        if(nums[mid] > nums[nums.length - 1]) {
-            start = mid + 1
-        } else {
-            end = mid - 1;
-        }
-    }
-    const left = bs(0, start - 1);
-    if(left !== -1) return left;
-    return bs(start, nums.length - 1);
+    return nums[l] == target ? l : -1;
 };
+
+
+/*
+1 10 20
+
+10 20 1
+20 1 10
+*/

@@ -15,7 +15,6 @@ function canReach(s: string, minJump: number, maxJump: number): boolean {
         }
         ones[i] = ones[i - 1] + reachable[i] 
     }
-    console.log(reachable, ones)
     return reachable[s.length - 1] == 1
 };
 

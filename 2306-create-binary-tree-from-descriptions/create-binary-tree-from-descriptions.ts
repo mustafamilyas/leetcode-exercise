@@ -13,24 +13,25 @@
  */
 
 function createBinaryTree(descriptions: number[][]): TreeNode | null {
-    const map = new Map<number, TreeNode>();
-    const childSet = new Set<number>();
+    const nodeParent: Record<number, TreeNode | null> = {};
+    const nodes: Record<number, TreeNode> = {};
     for(const [parent, child, isLeft] of descriptions) {
-        let parentNode = getOrCreate(parent)
-        let childNode = getOrCreate(child)
-        childSet.add(child)
-        if(isLeft) parentNode.left = childNode
-        else parentNode.right = childNode
+        if(!nodes[parent]) {
+            nodes[parent] = new TreeNode(parent)
+            nodeParent[parent] = null
+        }
+        if(!nodes[child]) {
+            nodes[child] = new TreeNode(child);
+        }
+        nodeParent[child] = nodes[parent]
+        if(isLeft) {
+            nodes[parent].left = nodes[child]
+        } else {
+            nodes[parent].right = nodes[child]
+        }
     }
-    for(const node of map.values()) {
-        if(!childSet.has(node.val)) return node 
+    for (const [key, value] of Object.entries(nodeParent)) {
+        if(value == null) return nodes[key]
     }
-    return null;
-    // ======================= UTILS =======================
-    function getOrCreate(value: number) {
-        if(map.has(value)) return map.get(value)
-        const node = new TreeNode(value)
-        map.set(value, node)
-        return node;
-    }
+    return null
 };

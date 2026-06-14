@@ -12,18 +12,17 @@
 
 function pairSum(head: ListNode | null): number {
     if(head === null) return 0;
-    let max = head.val;
+    let max = 0;
     const stack = [];
-    let slow = head;
-    let fast = head;
-    while(slow) { 
-        if(fast) {
-            stack.push(slow.val)
-            fast = fast.next.next;
-        } else {
-            max = Math.max(max, stack.pop() + slow.val)
-        }
+    let slow = head, fast = head;
+    while(fast) {
+        stack.push(slow.val);
         slow = slow.next;
-    };
+        fast = fast.next?.next;
+    }
+    while(slow) {
+        max = Math.max(max, slow.val + stack.pop());
+        slow = slow.next;
+    }
     return max;
 };

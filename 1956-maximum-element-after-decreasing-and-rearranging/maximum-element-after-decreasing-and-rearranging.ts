@@ -1,10 +1,13 @@
 function maximumElementAfterDecrementingAndRearranging(arr: number[]): number {
-    arr.sort((a, b)=> a - b);
-    arr[0] = 1;
-    for(let i = 1; i < arr.length; i++) {
-        if(arr[i] - arr[i - 1] > 1) {
-            arr[i] = arr[i - 1] + 1;
-        }
+    const maxValue = arr.length;
+    const count = new Array(maxValue + 1).fill(0);
+    for(let i = 0; i < maxValue; i++) {
+        count[Math.min(maxValue, arr[i])]++;
     }
-    return arr[arr.length - 1]
+    let res = 1;
+    for(let i = 2; i <= maxValue; i++) {
+        res = Math.min(i, res + count[i])
+    }
+
+    return res;
 };

@@ -1,14 +1,11 @@
 function numberOfSubstrings(s: string): number {
-    let counter = [0, 0, 0];
-    let res = 0, l = 0;
-    for(let i = 0; i < s.length; i++) {
-        let charcode = s.charCodeAt(i) - 97;
-        counter[charcode]++
-        while(counter.every(e => e > 0)) {
-            res += s.length - i;
-            let charcode = s.charCodeAt(l++) - 97;
-            counter[charcode]--
-        }
+    const n = s.length;
+    const count = [0, 0, 0];
+    let r = 0, res = 0;
+    for(let l = 0; l < n; l++) {
+        while(r < n && count.some((c) => c == 0)) count[s.charCodeAt(r++) - 97]++;
+        if(count.every((c) => c > 0)) res += n - r + 1;
+        count[s.charCodeAt(l) - 97]--;
     }
-    return res
+    return res;
 };

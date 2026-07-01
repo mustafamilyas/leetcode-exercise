@@ -5,10 +5,8 @@ function longestValidParentheses(s: string): number {
             lastZero[counter] = Math.min(lastZero[counter], i) 
             counter++;
         } else {
-            if(counter == 0) {
-                lastZero = new Array(s.length).fill(Number.MAX_SAFE_INTEGER);
-            } else {
-                lastZero[counter] = Number.MAX_SAFE_INTEGER;
+            lastZero[counter] = Number.MAX_SAFE_INTEGER;
+            if(counter > 0) {
                 counter--;
                 longestValid = Math.max(longestValid, i - lastZero[counter] + 1)
             }

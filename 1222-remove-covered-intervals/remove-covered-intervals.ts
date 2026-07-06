@@ -6,8 +6,8 @@ function removeCoveredIntervals(intervals: number[][]): number {
     let removed = 0;
     let prev = 0;
     for(let i = 1; i < intervals.length; i++) {
-        const [ps, pe] = intervals[prev];
-        const [ns, ne] = intervals[i];
+        const pe = intervals[prev][1];
+        const ne = intervals[i][1];
         if(ne <= pe) removed++
         else prev = i;
     }

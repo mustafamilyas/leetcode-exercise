@@ -1,3 +1,4 @@
+
 function arrayRankTransform(arr: number[]): number[] {
     const uniqueArr = Array.from(new Set(arr));
     uniqueArr.sort((a, b) => a - b);

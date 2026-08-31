@@ -11,27 +11,24 @@
  */
 
 function nodesBetweenCriticalPoints(head: ListNode | null): number[] {
-    if(head === null) return [-1, -1];
-    let cur = head.next, prev = head, curIdx = 1;
-    const distance = [];
+    let min = Number.MAX_SAFE_INTEGER, firstI = null, prevI = null, curI = 1;
+    let prev = head, cur = head?.next;
+    
     while(cur) {
-        if(cur.next && (
-            (prev.val > cur.val && cur.next.val > cur.val) ||
-            (prev.val < cur.val && cur.next.val < cur.val)
-        )) {
-            distance.push(curIdx)
-
+        if(cur.next) {
+            if(
+                (prev.val > cur.val && cur.next.val > cur.val) ||
+                (prev.val < cur.val && cur.next.val < cur.val)
+            ) {
+                if(prevI) min = Math.min(min, curI - prevI)
+                else firstI = curI;
+                prevI = curI
+            }
         }
-        prev = cur
+        prev = cur;
         cur = cur.next;
-        curIdx++
+        curI++;
     }
-    const dl = distance.length;
-    if(dl < 2) return [-1, -1];
-    const maxDistance = distance[dl - 1] - distance[0];
-    let minDistance = maxDistance;
-    for(let i = 1; i < dl; i++) {
-        minDistance = Math.min(minDistance, distance[i] - distance[i - 1])
-    }
-    return [minDistance, maxDistance]
+    if(min === Number.MAX_SAFE_INTEGER) return [-1, -1];
+    return [min, prevI - firstI]
 };

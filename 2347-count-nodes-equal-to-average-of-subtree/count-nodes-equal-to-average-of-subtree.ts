@@ -13,30 +13,14 @@
  */
 
 function averageOfSubtree(root: TreeNode | null): number {
-    let counter = 0;
-
-    function recurse(node: TreeNode | null): {
-        node: number,
-        sum: number
-    } {
-        if(node === null) return {
-            node: 0,
-            sum: 0
-        };
-        const rightValue = recurse(node.left);
-        const leftValue = recurse(node.right);
-        const sum = node.val + rightValue.sum + leftValue.sum;
-        const numNode = rightValue.node + leftValue.node + 1;
-        const avg = Math.floor(sum / numNode);
-
-        if(avg === node.val) counter++;
-        
-        return {
-            sum,
-            node: numNode
-        }
+    return avg(root)[2]
+    function avg(root: TreeNode | null): [number, number, number] { // count, sum, eq
+        if(root == null) return [0, 0, 0];
+        const [cl, sl, el] = avg(root.left);
+        const [cr, sr, er] = avg(root.right);
+        const sum = root.val + sl + sr;
+        const count = cl + cr + 1;
+        const calcAvg = Math.trunc(sum / count);
+        return calcAvg == root.val ? [count, sum, el + er + 1] : [count, sum, el + er]; 
     }
-
-    recurse(root)
-    return counter;
 };

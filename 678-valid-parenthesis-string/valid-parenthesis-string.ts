@@ -1,7 +1,8 @@
 function checkValidString(s: string): boolean {
     let leftMin = 0, leftMax = 0;
 
-    for (let c of s) {
+    for (let i = 0; i < s.length; i++) {
+        const c = s[i];
         if (c === '(') {
             leftMin++;
             leftMax++;

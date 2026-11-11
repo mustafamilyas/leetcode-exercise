@@ -1,5 +1,4 @@
 function minimumCost(cost1: number, cost2: number, costBoth: number, need1: number, need2: number): number {
-    const combineSingle = cost1 + cost2;
     const maxNeed = Math.max(need1, need2);
     const minNeed = Math.min(need1, need2);
 
